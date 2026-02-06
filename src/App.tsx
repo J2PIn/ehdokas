@@ -416,6 +416,8 @@ function Modal({
 
 // ---------- App ----------
 export default function App() {
+  const [lastRefresh, setLastRefresh] = useState<string | null>(null);
+  const [tickerMsgs, setTickerMsgs] = useState<TickerMsg[]>([]);
   const [index, setIndex] = useState<ElectionIndex | null>(null);
   const [feed, setFeed] = useState<Feed | null>(null);
   const [selectedElectionId, setSelectedElectionId] = useState<string | null>(null);
@@ -476,6 +478,28 @@ export default function App() {
       if (!data.electionDay) throw new Error("feed.json missing electionDay");
       if (!Array.isArray(data.candidates)) throw new Error("feed.json missing candidates[]");
       setFeed(data);
+      setLastRefresh(new Date().toISOString());
+      setTickerMsgs(buildTicker(data, items));
+      useEffect(() => {
+        if (!feed) return;
+        setTickerMsgs(buildTicker(feed, items));
+      }, [feed, items]);
+
+      useEffect(() => {
+        if (!index || !selectedElectionId) return;
+        const chosen = index.elections.find((e) => e.id === selectedElectionId);
+        if (!chosen) return;
+      
+        const timer = window.setInterval(() => {
+          loadFeed(chosen.feedUrl);
+          setLastRefresh(new Date().toISOString());
+        }, 60_000);
+      
+        return () => window.clearInterval(timer);
+      }, [index, selectedElectionId]);
+
+
+
     } catch (e: any) {
       setErr(e?.message ?? "Failed to load feed");
     } finally {
