@@ -170,6 +170,141 @@ function computeScores(feed: Feed, items: typeof DEFAULT_ITEMS) {
   return { scored, maxPoints };
 }
 
+type TickerMsg = {
+  kind: "ok" | "missing";
+  text: string;
+  href?: string;
+};
+
+function buildTicker(feed: Feed, items: typeof DEFAULT_ITEMS) {
+  const cutoff = feed.electionDay;
+
+  // 1) latest disclosures across all candidates
+  const disclosureMsgs: Array<{ t: number; msg: TickerMsg }> = [];
+  for (const c of feed.candidates) {
+    const dmap = c.disclosures ?? {};
+    (Object.keys(items) as DisclosureKey[]).forEach((k) => {
+      const evs = dmap[k] ?? [];
+      for (const ev of evs) {
+        if (!isOnOrBefore(ev.disclosedOn, cutoff)) continue; // enforce cutoff
+        const t = parseDate(ev.disclosedOn)?.getTime();
+        if (!t) continue;
+
+        disclosureMsgs.push({
+          t,
+          msg: {
+            kind: "ok",
+            text: `✅ ${c.name}${c.party ? ` (${c.party})` : ""} • ${items[k].label} • ${ev.disclosedOn}`,
+            href: ev.url,
+          },
+        });
+      }
+    });
+  }
+  disclosureMsgs.sort((a, b) => b.t - a.t);
+
+  // 2) missing docs per candidate
+  const missingMsgs: TickerMsg[] = feed.candidates
+    .map((c) => {
+      const missing: string[] = [];
+      (Object.keys(items) as DisclosureKey[]).forEach((k) => {
+        const has = !!latestEvidenceBefore(c.disclosures?.[k], cutoff);
+        if (!has) missing.push(items[k].label);
+      });
+
+      if (missing.length === 0) {
+        return {
+          kind: "ok" as const,
+          text: `🏁 ${c.name}${c.party ? ` (${c.party})` : ""} • kaikki dokumentit julkaistu`,
+        };
+      }
+
+      // keep message short (ticker)
+      const shown = missing.slice(0, 3);
+      const more = missing.length > 3 ? ` +${missing.length - 3}` : "";
+      return {
+        kind: "missing" as const,
+        text: `🔴 ${c.name}${c.party ? ` (${c.party})` : ""} • puuttuu: ${shown.join(", ")}${more}`,
+      };
+    })
+    .sort((a, b) => (a.kind === b.kind ? 0 : a.kind === "missing" ? -1 : 1));
+
+  // Blend: latest disclosures first, then missing reminders, repeatable
+  const latest = disclosureMsgs.slice(0, 20).map((x) => x.msg);
+  const missing = missingMsgs.slice(0, 20);
+
+  return [...latest, ...missing];
+}
+
+function LiveTicker({ messages }: { messages: TickerMsg[] }) {
+  if (!messages.length) return null;
+
+  // duplicate messages so it loops smoothly
+  const loop = [...messages, ...messages];
+
+  return (
+    <div
+      style={{
+        borderTop: "1px solid rgba(255,255,255,0.08)",
+        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        background: "rgba(255,255,255,0.03)",
+        overflow: "hidden",
+      }}
+    >
+      <style>{`
+        @keyframes ehdokas-marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+
+      <div style={{ display: "flex", gap: 14, padding: "10px 0" }}>
+        <div
+          style={{
+            display: "inline-flex",
+            whiteSpace: "nowrap",
+            willChange: "transform",
+            animation: "ehdokas-marquee 38s linear infinite",
+          }}
+        >
+          {loop.map((m, i) => (
+            <span
+              key={i}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "0 14px",
+                borderRight: "1px solid rgba(255,255,255,0.08)",
+                fontSize: 13,
+                color: m.kind === "missing" ? "rgba(255,140,140,0.95)" : "rgba(255,255,255,0.85)",
+              }}
+            >
+              {m.href ? (
+                <a
+                  href={m.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    color: "inherit",
+                    textDecoration: "none",
+                    borderBottom: "1px solid rgba(255,255,255,0.25)",
+                  }}
+                >
+                  {m.text}
+                </a>
+              ) : (
+                m.text
+              )}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
 // ---------- UI components (small + dependency-free) ----------
 function Chip({ children }: { children: React.ReactNode }) {
   return (
