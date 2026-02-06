@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "jurisdiction": "Finland",
+  "electionName": "Parliamentary election (Eduskuntavaalit)",
+  "electionDay": "2027-04-18",
+  "lastUpdated": "2026-02-06T00:00:00Z",
+  "items": {
+    "verovelkatodistus": {
+      "label": "Verovelkatodistus (Vero)",
+      "weight": 9,
+      "description": "Todistus verojen maksutilanteesta / verovelasta (päiväys ratkaisee)."
+    },
+    "luottotieto_ote": {
+      "label": "Luottotieto-ote (maksuhäiriöt)",
+      "weight": 9,
+      "description": "Ote, joka näyttää maksuhäiriömerkinnät ja voimassaoloajat."
+    },
+    "huumeseula_neg": {
+      "label": "Negatiivinen huumeseula",
+      "weight": 6,
+      "description": "Todistus negatiivisesta huumausainetestistä (esim. työterveys)."
+    },
+    "rikosrekisteriote": {
+      "label": "Rikosrekisteriote (ORK)",
+      "weight": 10,
+      "description": "Rikosrekisteriote / ote rikosrekisteristä."
+    },
+    "ulosottorekisteriote": {
+      "label": "Ulosottorekisteriote",
+      "weight": 8,
+      "description": "Todistus ulosottorekisteristä (päiväys ratkaisee)."
+    },
+    "kaupparekisteriote": {
+      "label": "Kaupparekisteriote (PRH / Virre)",
+      "weight": 7,
+      "description": "Kaupparekisteriote ja yrityssidonnaisuudet."
+    }
+  },
+  "candidates": []
+}
