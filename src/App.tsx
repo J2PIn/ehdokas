@@ -53,10 +53,7 @@ type ElectionIndex = {
 };
 
 // Default disclosure framework (Finland-first)
-const DEFAULT_ITEMS: Record<
-  DisclosureKey,
-  { label: string; weight: number; description: string }
-> = {
+const DEFAULT_ITEMS: Record<DisclosureKey, { label: string; weight: number; description: string }> = {
   verovelkatodistus: {
     label: "Verovelkatodistus (Vero)",
     weight: 9,
@@ -66,32 +63,27 @@ const DEFAULT_ITEMS: Record<
   luottotieto_ote: {
     label: "Luottotieto-ote (maksuhäiriöt)",
     weight: 9,
-    description:
-      "Ote, joka näyttää maksuhäiriömerkinnät ja niiden voimassaoloajat (rekisteriote).",
+    description: "Ote, joka näyttää maksuhäiriömerkinnät ja niiden voimassaoloajat (rekisteriote).",
   },
   huumeseula_neg: {
     label: "Negatiivinen huumeseula",
     weight: 6,
-    description:
-      "Todistus negatiivisesta huumausainetestistä (esim. työterveys).",
+    description: "Todistus negatiivisesta huumausainetestistä (esim. työterveys).",
   },
   rikosrekisteriote: {
     label: "Rikosrekisteriote (ORK)",
     weight: 10,
-    description:
-      "Rikosrekisteriote / ote rikosrekisteristä (Oikeusrekisterikeskus).",
+    description: "Rikosrekisteriote / ote rikosrekisteristä (Oikeusrekisterikeskus).",
   },
   ulosottorekisteriote: {
     label: "Ulosottorekisteriote",
     weight: 8,
-    description:
-      "Todistus ulosottorekisteristä. Päiväys ratkaisee.",
+    description: "Todistus ulosottorekisteristä. Päiväys ratkaisee.",
   },
   kaupparekisteriote: {
     label: "Kaupparekisteriote (PRH / Virre)",
     weight: 7,
-    description:
-      "Kaupparekisteriote ja yrityssidonnaisuudet (hallitukset, roolit, vastuut).",
+    description: "Kaupparekisteriote ja yrityssidonnaisuudet (hallitukset, roolit, vastuut).",
   },
 };
 
@@ -100,75 +92,6 @@ function parseDate(d: string): Date | null {
   const t = Date.parse(d);
   return Number.isFinite(t) ? new Date(t) : null;
 }
-function LiveTicker({
-  messages,
-}: {
-  messages: TickerMsg[];
-}) {
-  if (!messages.length) return null;
-  const loop = [...messages, ...messages]; // smooth loop
-
-  return (
-    <div
-      style={{
-        borderTop: "1px solid rgba(255,255,255,0.08)",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
-        background: "rgba(255,255,255,0.03)",
-        overflow: "hidden",
-      }}
-    >
-      <style>{`
-        @keyframes ehdokas-marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
-
-      <div
-        style={{
-          display: "inline-flex",
-          whiteSpace: "nowrap",
-          willChange: "transform",
-          animation: "ehdokas-marquee 38s linear infinite",
-          padding: "10px 0",
-        }}
-      >
-        {loop.map((m, i) => (
-          <span
-            key={i}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              padding: "0 14px",
-              borderRight: "1px solid rgba(255,255,255,0.08)",
-              fontSize: 13,
-              color: m.kind === "missing" ? "rgba(255,140,140,0.95)" : "rgba(255,255,255,0.85)",
-            }}
-          >
-            {m.href ? (
-              <a
-                href={m.href}
-                target="_blank"
-                rel="noreferrer"
-                style={{
-                  color: "inherit",
-                  textDecoration: "none",
-                  borderBottom: "1px solid rgba(255,255,255,0.25)",
-                }}
-              >
-                {m.text}
-              </a>
-            ) : (
-              m.text
-            )}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-
 function dayTime(d: Date) {
   return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
 }
@@ -213,15 +136,11 @@ function daysUntil(dateISO: string): number | null {
 
 function computeScores(feed: Feed, items: typeof DEFAULT_ITEMS) {
   const cutoff = feed.electionDay;
-  const maxPoints = (Object.keys(items) as DisclosureKey[]).reduce(
-    (sum, k) => sum + items[k].weight,
-    0
-  );
+  const maxPoints = (Object.keys(items) as DisclosureKey[]).reduce((sum, k) => sum + items[k].weight, 0);
 
   const scored = feed.candidates.map((c) => {
     let points = 0;
-    const perItem: Record<DisclosureKey, { has: boolean; points: number; evidence: Evidence | null }> =
-      {} as any;
+    const perItem: Record<DisclosureKey, { has: boolean; points: number; evidence: Evidence | null }> = {} as any;
 
     (Object.keys(items) as DisclosureKey[]).forEach((k) => {
       const evidence = latestEvidenceBefore(c.disclosures?.[k], cutoff);
@@ -239,17 +158,12 @@ function computeScores(feed: Feed, items: typeof DEFAULT_ITEMS) {
   return { scored, maxPoints };
 }
 
-type TickerMsg = {
-  kind: "ok" | "missing";
-  text: string;
-  href?: string;
-  t?: number; // optional timestamp for sorting
-};
+// ---------- ticker ----------
+type TickerMsg = { kind: "ok" | "missing"; text: string; href?: string; t?: number };
 
 function buildTicker(feed: Feed, items: typeof DEFAULT_ITEMS): TickerMsg[] {
   const cutoff = feed.electionDay;
 
-  // ✅ disclosures (event stream)
   const events: TickerMsg[] = [];
   for (const c of feed.candidates) {
     const dmap = c.disclosures ?? {};
@@ -270,34 +184,26 @@ function buildTicker(feed: Feed, items: typeof DEFAULT_ITEMS): TickerMsg[] {
   }
   events.sort((a, b) => (b.t ?? 0) - (a.t ?? 0));
 
-  // 🔴 missing docs (status stream)
   const missing: TickerMsg[] = feed.candidates.map((c) => {
     const miss: string[] = [];
     (Object.keys(items) as DisclosureKey[]).forEach((k) => {
       const has = !!latestEvidenceBefore(c.disclosures?.[k], cutoff);
       if (!has) miss.push(items[k].label);
     });
-
     if (miss.length === 0) {
       return { kind: "ok", text: `🏁 ${c.name}${c.party ? ` (${c.party})` : ""} • kaikki dokumentit julkaistu` };
     }
-
     const shown = miss.slice(0, 3);
     const more = miss.length > 3 ? ` +${miss.length - 3}` : "";
-    return {
-      kind: "missing",
-      text: `🔴 ${c.name}${c.party ? ` (${c.party})` : ""} • puuttuu: ${shown.join(", ")}${more}`,
-    };
+    return { kind: "missing", text: `🔴 ${c.name}${c.party ? ` (${c.party})` : ""} • puuttuu: ${shown.join(", ")}${more}` };
   });
 
   return [...events.slice(0, 25), ...missing.slice(0, 25)];
 }
 
-function LiveTicker({ messages }: { messages: TickerMsg[] }) {
-  if (!messages.length) return null;
-
-  // duplicate messages so it loops smoothly
-  const loop = [...messages, ...messages];
+function TickerBar({ items }: { items: TickerMsg[] }) {
+  if (!items.length) return null;
+  const loop = [...items, ...items];
 
   return (
     <div
@@ -309,60 +215,45 @@ function LiveTicker({ messages }: { messages: TickerMsg[] }) {
       }}
     >
       <style>{`
-        @keyframes ehdokas-marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
+        @keyframes ehdokas-marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .ehdokas-marquee { animation: ehdokas-marquee 34s linear infinite; will-change: transform; }
+        .ehdokas-marquee:hover { animation-play-state: paused; }
+        @media (prefers-reduced-motion: reduce) { .ehdokas-marquee { animation: none !important; transform: none !important; } }
       `}</style>
 
-      <div style={{ display: "flex", gap: 14, padding: "10px 0" }}>
-        <div
-          style={{
-            display: "inline-flex",
-            whiteSpace: "nowrap",
-            willChange: "transform",
-            animation: "ehdokas-marquee 38s linear infinite",
-          }}
-        >
-          {loop.map((m, i) => (
-            <span
-              key={i}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "0 14px",
-                borderRight: "1px solid rgba(255,255,255,0.08)",
-                fontSize: 13,
-                color: m.kind === "missing" ? "rgba(255,140,140,0.95)" : "rgba(255,255,255,0.85)",
-              }}
-            >
-              {m.href ? (
-                <a
-                  href={m.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    color: "inherit",
-                    textDecoration: "none",
-                    borderBottom: "1px solid rgba(255,255,255,0.25)",
-                  }}
-                >
-                  {m.text}
-                </a>
-              ) : (
-                m.text
-              )}
-            </span>
-          ))}
-        </div>
+      <div className="ehdokas-marquee" style={{ display: "inline-flex", whiteSpace: "nowrap", padding: "10px 0" }}>
+        {loop.map((m, i) => (
+          <span
+            key={i}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              padding: "0 14px",
+              borderRight: "1px solid rgba(255,255,255,0.08)",
+              fontSize: 13,
+              color: m.kind === "missing" ? "rgba(255,140,140,0.95)" : "rgba(255,255,255,0.85)",
+            }}
+          >
+            {m.href ? (
+              <a
+                href={m.href}
+                target="_blank"
+                rel="noreferrer"
+                style={{ color: "inherit", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.25)" }}
+              >
+                {m.text}
+              </a>
+            ) : (
+              m.text
+            )}
+          </span>
+        ))}
       </div>
     </div>
   );
 }
 
-
-// ---------- UI components (small + dependency-free) ----------
+// ---------- UI components ----------
 function Chip({ children }: { children: React.ReactNode }) {
   return (
     <span
@@ -384,59 +275,9 @@ function Chip({ children }: { children: React.ReactNode }) {
   );
 }
 
-function TickerBar({
-  items,
-}: {
-  items: Array<{ kind: "ok" | "missing"; text: string; href?: string }>;
-}) {
-  if (!items.length) return null;
-  const loop = [...items, ...items];
-
-  return (
-    <div className="border-y border-white/10 bg-white/[0.03] overflow-hidden">
-      <div className="marquee inline-flex whitespace-nowrap py-2">
-        {loop.map((m, i) => (
-          <span
-            key={i}
-            className="inline-flex items-center gap-3 px-4 border-r border-white/10 text-sm"
-          >
-            {m.href ? (
-              <a
-                href={m.href}
-                target="_blank"
-                rel="noreferrer"
-                className={
-                  m.kind === "missing"
-                    ? "text-red-300 hover:underline underline-offset-4"
-                    : "text-white/80 hover:underline underline-offset-4"
-                }
-              >
-                {m.text}
-              </a>
-            ) : (
-              <span className={m.kind === "missing" ? "text-red-300" : "text-white/80"}>
-                {m.text}
-              </span>
-            )}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-
 function ProgressBar({ value }: { value: number }) {
   return (
-    <div
-      style={{
-        height: 10,
-        width: "100%",
-        borderRadius: 999,
-        background: "rgba(255,255,255,0.10)",
-        overflow: "hidden",
-      }}
-    >
+    <div style={{ height: 10, width: "100%", borderRadius: 999, background: "rgba(255,255,255,0.10)", overflow: "hidden" }}>
       <div
         style={{
           height: "100%",
@@ -515,14 +356,9 @@ function Modal({
 
 // ---------- App ----------
 export default function App() {
-  const [lastRefresh, setLastRefresh] = useState<string | null>(null);
-  const [tickerMsgs, setTickerMsgs] = useState<TickerMsg[]>([]);
   const [index, setIndex] = useState<ElectionIndex | null>(null);
   const [feed, setFeed] = useState<Feed | null>(null);
   const [selectedElectionId, setSelectedElectionId] = useState<string | null>(null);
-  const [tickerFilter, setTickerFilter] = useState<"all" | "ok" | "missing">("all");
-  const [tickerMsgs, setTickerMsgs] = useState<TickerMsg[]>([]);
-
 
   const [query, setQuery] = useState("");
   const [selectedCandidateId, setSelectedCandidateId] = useState<string | null>(null);
@@ -530,6 +366,11 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [howOpen, setHowOpen] = useState(false);
+
+  // ticker
+  const [lastRefresh, setLastRefresh] = useState<string | null>(null);
+  const [tickerFilter, setTickerFilter] = useState<"all" | "ok" | "missing">("all");
+  const [tickerMsgs, setTickerMsgs] = useState<TickerMsg[]>([]);
 
   const items = useMemo(() => {
     if (!feed?.items) return DEFAULT_ITEMS;
@@ -581,27 +422,6 @@ export default function App() {
       if (!Array.isArray(data.candidates)) throw new Error("feed.json missing candidates[]");
       setFeed(data);
       setLastRefresh(new Date().toISOString());
-      setTickerMsgs(buildTicker(data, items));
-      useEffect(() => {
-        if (!feed) return;
-        setTickerMsgs(buildTicker(feed, items));
-      }, [feed, items]);
-
-      useEffect(() => {
-        if (!index || !selectedElectionId) return;
-        const chosen = index.elections.find((e) => e.id === selectedElectionId);
-        if (!chosen) return;
-      
-        const timer = window.setInterval(() => {
-          loadFeed(chosen.feedUrl);
-          setLastRefresh(new Date().toISOString());
-        }, 60_000);
-      
-        return () => window.clearInterval(timer);
-      }, [index, selectedElectionId]);
-
-
-
     } catch (e: any) {
       setErr(e?.message ?? "Failed to load feed");
     } finally {
@@ -613,6 +433,31 @@ export default function App() {
     loadIndex();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // recompute ticker when feed/items changes
+  useEffect(() => {
+    if (!feed) return;
+    setTickerMsgs(buildTicker(feed, items));
+  }, [feed, items]);
+
+  // auto-refresh current election feed every 60s
+  useEffect(() => {
+    if (!index || !selectedElectionId) return;
+    const chosen = index.elections.find((e) => e.id === selectedElectionId);
+    if (!chosen) return;
+
+    const timer = window.setInterval(() => {
+      loadFeed(chosen.feedUrl);
+      setLastRefresh(new Date().toISOString());
+    }, 60_000);
+
+    return () => window.clearInterval(timer);
+  }, [index, selectedElectionId]);
+
+  const shownTicker = useMemo(() => {
+    if (tickerFilter === "all") return tickerMsgs;
+    return tickerMsgs.filter((m) => m.kind === tickerFilter);
+  }, [tickerMsgs, tickerFilter]);
 
   const computed = useMemo(() => (feed ? computeScores(feed, items) : null), [feed, items]);
 
@@ -633,6 +478,17 @@ export default function App() {
 
   const dLeft = feed?.electionDay ? daysUntil(feed.electionDay) : null;
 
+  const filterBtn = (active: boolean): React.CSSProperties => ({
+    cursor: "pointer",
+    borderRadius: 14,
+    padding: "8px 10px",
+    border: "1px solid rgba(255,255,255,0.12)",
+    background: active ? "rgba(255,255,255,0.14)" : "rgba(255,255,255,0.06)",
+    color: "white",
+    fontSize: 13,
+    fontWeight: 700,
+  });
+
   return (
     <div
       style={{
@@ -643,7 +499,6 @@ export default function App() {
       }}
     >
       {/* top bar */}
-      {tickerMsgs.length > 0 && <LiveTicker messages={tickerMsgs} />}
       <div
         style={{
           position: "sticky",
@@ -653,36 +508,6 @@ export default function App() {
           background: "rgba(8,8,10,0.72)",
           borderBottom: "1px solid rgba(255,255,255,0.08)",
         }}
-        const shownTicker = useMemo(() => {
-          if (tickerFilter === "all") return tickerMsgs;
-          return tickerMsgs.filter((m) => m.kind === tickerFilter);
-        }, [tickerMsgs, tickerFilter]);
-        
-        {shownTicker.length > 0 && <LiveTicker messages={shownTicker} />}
-
-        <TickerBar items={shownTicker} />
-
-
-        <Chip>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-            <span
-              style={{
-                width: 8,
-                height: 8,
-                borderRadius: 999,
-                background: "rgba(120,255,180,0.9)",
-                boxShadow: "0 0 16px rgba(120,255,180,0.55)",
-              }}
-            />
-            LIVE
-          </span>
-          {lastRefresh ? (
-            <span style={{ color: "rgba(255,255,255,0.7)" }}>
-              • päivitetty {new Date(lastRefresh).toLocaleTimeString("fi-FI")}
-            </span>
-          ) : null}
-        </Chip>
-
       >
         <div
           style={{
@@ -719,7 +544,27 @@ export default function App() {
             </div>
           </div>
 
-          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+            <Chip>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                <span
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: 999,
+                    background: "rgba(120,255,180,0.9)",
+                    boxShadow: "0 0 16px rgba(120,255,180,0.55)",
+                  }}
+                />
+                LIVE
+              </span>
+              {lastRefresh ? (
+                <span style={{ color: "rgba(255,255,255,0.7)" }}>
+                  • {new Date(lastRefresh).toLocaleTimeString("fi-FI")}
+                </span>
+              ) : null}
+            </Chip>
+
             <button
               onClick={() => setHowOpen(true)}
               style={{
@@ -739,16 +584,12 @@ export default function App() {
         </div>
       </div>
 
+      {/* Sortino-style ticker */}
+      {shownTicker.length > 0 && <TickerBar items={shownTicker} />}
+
       <main style={{ maxWidth: 1100, margin: "0 auto", padding: "22px 16px 48px" }}>
         {/* hero */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.2fr 0.8fr",
-            gap: 18,
-            alignItems: "stretch",
-          }}
-        >
+        <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 18, alignItems: "stretch" }}>
           <div
             style={{
               borderRadius: 22,
@@ -773,7 +614,7 @@ export default function App() {
               (verifioitavina linkkeinä) <b>ennen vaalipäivää</b>. Sivusto ei tallenna mitään materiaalia.
             </p>
 
-            <div style={{ marginTop: 14, display: "flex", gap: 10, flexWrap: "wrap" }}>
+            <div style={{ marginTop: 14, display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
               <button
                 onClick={loadIndex}
                 disabled={loading}
@@ -790,12 +631,19 @@ export default function App() {
               >
                 {loading ? "Ladataan…" : "Päivitä tiedot"}
               </button>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              <button onClick={() => setTickerFilter("all")} style={...}>Kaikki</button>
-              <button onClick={() => setTickerFilter("ok")} style={...}>✅ Uudet</button>
-              <button onClick={() => setTickerFilter("missing")} style={...}>🔴 Puuttuvat</button>
-            </div>
 
+              {/* ticker filters */}
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                <button onClick={() => setTickerFilter("all")} style={filterBtn(tickerFilter === "all")}>
+                  Kaikki
+                </button>
+                <button onClick={() => setTickerFilter("ok")} style={filterBtn(tickerFilter === "ok")}>
+                  ✅ Uudet
+                </button>
+                <button onClick={() => setTickerFilter("missing")} style={filterBtn(tickerFilter === "missing")}>
+                  🔴 Puuttuvat
+                </button>
+              </div>
 
               {feed?.electionDay && (
                 <Chip>
@@ -865,11 +713,7 @@ export default function App() {
                 >
                   {index.elections
                     .slice()
-                    .sort(
-                      (a, b) =>
-                        (parseDate(a.electionDay)?.getTime() ?? 0) -
-                        (parseDate(b.electionDay)?.getTime() ?? 0)
-                    )
+                    .sort((a, b) => (parseDate(a.electionDay)?.getTime() ?? 0) - (parseDate(b.electionDay)?.getTime() ?? 0))
                     .map((e) => (
                       <option key={e.id} value={e.id}>
                         {e.electionDay} — {e.name}
@@ -883,9 +727,7 @@ export default function App() {
                 </div>
               </>
             ) : (
-              <div style={{ fontSize: 13, color: "rgba(255,255,255,0.75)" }}>
-                Ladataan vaali-indeksi…
-              </div>
+              <div style={{ fontSize: 13, color: "rgba(255,255,255,0.75)" }}>Ladataan vaali-indeksi…</div>
             )}
           </div>
         </div>
@@ -895,9 +737,7 @@ export default function App() {
           <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
             <div>
               <div style={{ fontSize: 12, color: "rgba(255,255,255,0.70)" }}>Ranking</div>
-              <div style={{ fontSize: 20, fontWeight: 800 }}>
-                {feed?.electionName ? feed.electionName : "Seuraavat vaalit"}
-              </div>
+              <div style={{ fontSize: 20, fontWeight: 800 }}>{feed?.electionName ? feed.electionName : "Seuraavat vaalit"}</div>
               {feed?.lastUpdated && (
                 <div style={{ fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
                   Feed päivitetty: <span style={{ color: "rgba(255,255,255,0.9)" }}>{feed.lastUpdated}</span>
@@ -924,17 +764,8 @@ export default function App() {
           </div>
 
           <div style={{ marginTop: 12, display: "grid", gridTemplateColumns: "1fr", gap: 10 }}>
-            {!computed && (
-              <div style={{ color: "rgba(255,255,255,0.70)", fontSize: 13 }}>
-                Lataa vaali nähdäksesi rankingin.
-              </div>
-            )}
-
-            {computed && filtered.length === 0 && (
-              <div style={{ color: "rgba(255,255,255,0.70)", fontSize: 13 }}>
-                Ei hakutuloksia.
-              </div>
-            )}
+            {!computed && <div style={{ color: "rgba(255,255,255,0.70)", fontSize: 13 }}>Lataa vaali nähdäksesi rankingin.</div>}
+            {computed && filtered.length === 0 && <div style={{ color: "rgba(255,255,255,0.70)", fontSize: 13 }}>Ei hakutuloksia.</div>}
 
             {computed &&
               filtered.map((s, idx) => (
@@ -969,12 +800,7 @@ export default function App() {
                     title={`Sija ${idx + 1}`}
                   >
                     {s.candidate.photoUrl ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={s.candidate.photoUrl}
-                        alt=""
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                      />
+                      <img src={s.candidate.photoUrl} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     ) : (
                       <span>{idx + 1}</span>
                     )}
@@ -1020,9 +846,7 @@ export default function App() {
           <div>
             <b style={{ color: "white" }}>Storage-free:</b> pisteytys tapahtuu selaimessa. Linkit vievät ulkoisiin lähteisiin.
           </div>
-          <div>
-            Vihje ehdokkaille: julkaise dokumentit (mieluiten redaktioituna) ja lisää pysyvä linkki.
-          </div>
+          <div>Vihje ehdokkaille: julkaise dokumentit (mieluiten redaktioituna) ja lisää pysyvä linkki.</div>
         </div>
       </main>
 
@@ -1050,12 +874,7 @@ export default function App() {
                 </Chip>
               )}
               {selected.candidate.website && (
-                <a
-                  href={selected.candidate.website}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ color: "white", textDecoration: "none" }}
-                >
+                <a href={selected.candidate.website} target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
                   <Chip>🌐 kotisivu</Chip>
                 </a>
               )}
@@ -1098,9 +917,7 @@ export default function App() {
                           Julkaistu: <b style={{ color: "white" }}>{row.evidence.disclosedOn}</b>
                         </div>
                         {row.evidence.note && (
-                          <div style={{ marginTop: 4, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
-                            {row.evidence.note}
-                          </div>
+                          <div style={{ marginTop: 4, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>{row.evidence.note}</div>
                         )}
                       </div>
                     ) : (
@@ -1119,61 +936,31 @@ export default function App() {
       {/* How it works modal */}
       <Modal open={howOpen} onClose={() => setHowOpen(false)} title="Miten ehdokas.site toimii?">
         <div style={{ display: "grid", gap: 12, color: "rgba(255,255,255,0.85)", fontSize: 13 }}>
-          <div
-            style={{
-              borderRadius: 16,
-              border: "1px solid rgba(255,255,255,0.10)",
-              background: "rgba(255,255,255,0.04)",
-              padding: 14,
-            }}
-          >
+          <div style={{ borderRadius: 16, border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.04)", padding: 14 }}>
             <b style={{ color: "white" }}>1) Julkinen vaali-indeksi</b>
             <div style={{ marginTop: 6, color: "rgba(255,255,255,0.75)" }}>
               Sivusto lukee tiedoston <code>/elections/index.json</code>, joka listaa tulevat vaalit ja niiden feed-URL:t.
             </div>
           </div>
 
-          <div
-            style={{
-              borderRadius: 16,
-              border: "1px solid rgba(255,255,255,0.10)",
-              background: "rgba(255,255,255,0.04)",
-              padding: 14,
-            }}
-          >
+          <div style={{ borderRadius: 16, border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.04)", padding: 14 }}>
             <b style={{ color: "white" }}>2) Per-vaali feed.json</b>
             <div style={{ marginTop: 6, color: "rgba(255,255,255,0.75)" }}>
-              Jokaisella vaalilla on oma <code>feed.json</code>, jossa on ehdokkaat ja todiste-linkit (URL + disclosedOn).
-              Pisteet lasketaan selaimessa.
+              Jokaisella vaalilla on oma <code>feed.json</code>, jossa on ehdokkaat ja todiste-linkit (URL + disclosedOn). Pisteet lasketaan selaimessa.
             </div>
           </div>
 
-          <div
-            style={{
-              borderRadius: 16,
-              border: "1px solid rgba(255,255,255,0.10)",
-              background: "rgba(255,255,255,0.04)",
-              padding: 14,
-            }}
-          >
+          <div style={{ borderRadius: 16, border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.04)", padding: 14 }}>
             <b style={{ color: "white" }}>3) Cutoff = vaalipäivä</b>
             <div style={{ marginTop: 6, color: "rgba(255,255,255,0.75)" }}>
               Dokumentti lasketaan mukaan vain, jos sen <code>disclosedOn</code> on <b>vaalipäivänä tai ennen</b>.
             </div>
           </div>
 
-          <div
-            style={{
-              borderRadius: 16,
-              border: "1px solid rgba(255,255,255,0.10)",
-              background: "rgba(255,255,255,0.04)",
-              padding: 14,
-            }}
-          >
+          <div style={{ borderRadius: 16, border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.04)", padding: 14 }}>
             <b style={{ color: "white" }}>Ei tallennusta</b>
             <div style={{ marginTop: 6, color: "rgba(255,255,255,0.75)" }}>
-              Ehdokas.site ei tallenna materiaalia. Se näyttää vain julkiset linkit ja laskee pisteet muistissa.
-              Huom: linkin kohdesivusto voi lokittaa käynnin.
+              Ehdokas.site ei tallenna materiaalia. Se näyttää vain julkiset linkit ja laskee pisteet muistissa. Huom: linkin kohdesivusto voi lokittaa käynnin.
             </div>
           </div>
         </div>
