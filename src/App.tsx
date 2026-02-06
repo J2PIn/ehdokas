@@ -541,6 +541,7 @@ export default function App() {
       }}
     >
       {/* top bar */}
+      {tickerMsgs.length > 0 && <LiveTicker messages={tickerMsgs} />}
       <div
         style={{
           position: "sticky",
@@ -550,6 +551,27 @@ export default function App() {
           background: "rgba(8,8,10,0.72)",
           borderBottom: "1px solid rgba(255,255,255,0.08)",
         }}
+
+        <Chip>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+            <span
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 999,
+                background: "rgba(120,255,180,0.9)",
+                boxShadow: "0 0 16px rgba(120,255,180,0.55)",
+              }}
+            />
+            LIVE
+          </span>
+          {lastRefresh ? (
+            <span style={{ color: "rgba(255,255,255,0.7)" }}>
+              • päivitetty {new Date(lastRefresh).toLocaleTimeString("fi-FI")}
+            </span>
+          ) : null}
+        </Chip>
+
       >
         <div
           style={{
