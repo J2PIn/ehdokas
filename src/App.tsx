@@ -384,6 +384,48 @@ function Chip({ children }: { children: React.ReactNode }) {
   );
 }
 
+function TickerBar({
+  items,
+}: {
+  items: Array<{ kind: "ok" | "missing"; text: string; href?: string }>;
+}) {
+  if (!items.length) return null;
+  const loop = [...items, ...items];
+
+  return (
+    <div className="border-y border-white/10 bg-white/[0.03] overflow-hidden">
+      <div className="marquee inline-flex whitespace-nowrap py-2">
+        {loop.map((m, i) => (
+          <span
+            key={i}
+            className="inline-flex items-center gap-3 px-4 border-r border-white/10 text-sm"
+          >
+            {m.href ? (
+              <a
+                href={m.href}
+                target="_blank"
+                rel="noreferrer"
+                className={
+                  m.kind === "missing"
+                    ? "text-red-300 hover:underline underline-offset-4"
+                    : "text-white/80 hover:underline underline-offset-4"
+                }
+              >
+                {m.text}
+              </a>
+            ) : (
+              <span className={m.kind === "missing" ? "text-red-300" : "text-white/80"}>
+                {m.text}
+              </span>
+            )}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
 function ProgressBar({ value }: { value: number }) {
   return (
     <div
@@ -617,6 +659,9 @@ export default function App() {
         }, [tickerMsgs, tickerFilter]);
         
         {shownTicker.length > 0 && <LiveTicker messages={shownTicker} />}
+
+        <TickerBar items={shownTicker} />
+
 
         <Chip>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
