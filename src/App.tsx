@@ -174,66 +174,54 @@ type TickerMsg = {
   kind: "ok" | "missing";
   text: string;
   href?: string;
+  t?: number; // optional timestamp for sorting
 };
 
-function buildTicker(feed: Feed, items: typeof DEFAULT_ITEMS) {
+function buildTicker(feed: Feed, items: typeof DEFAULT_ITEMS): TickerMsg[] {
   const cutoff = feed.electionDay;
 
-  // 1) latest disclosures across all candidates
-  const disclosureMsgs: Array<{ t: number; msg: TickerMsg }> = [];
+  // ✅ disclosures (event stream)
+  const events: TickerMsg[] = [];
   for (const c of feed.candidates) {
     const dmap = c.disclosures ?? {};
     (Object.keys(items) as DisclosureKey[]).forEach((k) => {
       const evs = dmap[k] ?? [];
       for (const ev of evs) {
-        if (!isOnOrBefore(ev.disclosedOn, cutoff)) continue; // enforce cutoff
-        const t = parseDate(ev.disclosedOn)?.getTime();
-        if (!t) continue;
-
-        disclosureMsgs.push({
-          t,
-          msg: {
-            kind: "ok",
-            text: `✅ ${c.name}${c.party ? ` (${c.party})` : ""} • ${items[k].label} • ${ev.disclosedOn}`,
-            href: ev.url,
-          },
+        if (!isOnOrBefore(ev.disclosedOn, cutoff)) continue;
+        const ts = parseDate(ev.disclosedOn)?.getTime();
+        if (!ts) continue;
+        events.push({
+          kind: "ok",
+          t: ts,
+          text: `✅ ${c.name}${c.party ? ` (${c.party})` : ""} • ${items[k].label} • ${ev.disclosedOn}`,
+          href: ev.url,
         });
       }
     });
   }
-  disclosureMsgs.sort((a, b) => b.t - a.t);
+  events.sort((a, b) => (b.t ?? 0) - (a.t ?? 0));
 
-  // 2) missing docs per candidate
-  const missingMsgs: TickerMsg[] = feed.candidates
-    .map((c) => {
-      const missing: string[] = [];
-      (Object.keys(items) as DisclosureKey[]).forEach((k) => {
-        const has = !!latestEvidenceBefore(c.disclosures?.[k], cutoff);
-        if (!has) missing.push(items[k].label);
-      });
+  // 🔴 missing docs (status stream)
+  const missing: TickerMsg[] = feed.candidates.map((c) => {
+    const miss: string[] = [];
+    (Object.keys(items) as DisclosureKey[]).forEach((k) => {
+      const has = !!latestEvidenceBefore(c.disclosures?.[k], cutoff);
+      if (!has) miss.push(items[k].label);
+    });
 
-      if (missing.length === 0) {
-        return {
-          kind: "ok" as const,
-          text: `🏁 ${c.name}${c.party ? ` (${c.party})` : ""} • kaikki dokumentit julkaistu`,
-        };
-      }
+    if (miss.length === 0) {
+      return { kind: "ok", text: `🏁 ${c.name}${c.party ? ` (${c.party})` : ""} • kaikki dokumentit julkaistu` };
+    }
 
-      // keep message short (ticker)
-      const shown = missing.slice(0, 3);
-      const more = missing.length > 3 ? ` +${missing.length - 3}` : "";
-      return {
-        kind: "missing" as const,
-        text: `🔴 ${c.name}${c.party ? ` (${c.party})` : ""} • puuttuu: ${shown.join(", ")}${more}`,
-      };
-    })
-    .sort((a, b) => (a.kind === b.kind ? 0 : a.kind === "missing" ? -1 : 1));
+    const shown = miss.slice(0, 3);
+    const more = miss.length > 3 ? ` +${miss.length - 3}` : "";
+    return {
+      kind: "missing",
+      text: `🔴 ${c.name}${c.party ? ` (${c.party})` : ""} • puuttuu: ${shown.join(", ")}${more}`,
+    };
+  });
 
-  // Blend: latest disclosures first, then missing reminders, repeatable
-  const latest = disclosureMsgs.slice(0, 20).map((x) => x.msg);
-  const missing = missingMsgs.slice(0, 20);
-
-  return [...latest, ...missing];
+  return [...events.slice(0, 25), ...missing.slice(0, 25)];
 }
 
 function LiveTicker({ messages }: { messages: TickerMsg[] }) {
