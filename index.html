@@ -1,5 +1,28 @@
 <!doctype html>
 <html lang="fi">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+        boxShadow: { soft: "0 10px 30px rgba(15, 23, 42, 0.08)" }
+      }
+    }
+  }
+</script>
+
+<style>
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .marquee { animation: marquee 28s linear infinite; will-change: transform; }
+  .marquee:hover { animation-play-state: paused; }
+  @media (prefers-reduced-motion: reduce) { .marquee { animation: none !important; transform: none !important; } }
+</style>
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
