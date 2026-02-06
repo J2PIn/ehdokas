@@ -1,36 +1,31 @@
 <!doctype html>
 <html lang="fi">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
-        boxShadow: { soft: "0 10px 30px rgba(15, 23, 42, 0.08)" }
-      }
-    }
-  }
-</script>
-
-<style>
-  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-  .marquee { animation: marquee 28s linear infinite; will-change: transform; }
-  .marquee:hover { animation-play-state: paused; }
-  @media (prefers-reduced-motion: reduce) { .marquee { animation: none !important; transform: none !important; } }
-</style>
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ehdokas.site – Ehdokkaiden avoimuus (vain julkiset linkit, ei tallennusta)" />
     <title>ehdokas.site</title>
+
+    <!-- Sortino-style font (OK, no storage) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Optional: if you already use Tailwind via npm, keep this OUT.
+         Only include CDN if you intentionally want it. -->
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+    <style>
+      :root { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+      @keyframes ehdokas-marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+      .ehdokas-marquee { animation: ehdokas-marquee 34s linear infinite; will-change: transform; }
+      .ehdokas-marquee:hover { animation-play-state: paused; }
+      @media (prefers-reduced-motion: reduce) { .ehdokas-marquee { animation: none !important; transform: none !important; } }
+    </style>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
