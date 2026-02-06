@@ -100,6 +100,75 @@ function parseDate(d: string): Date | null {
   const t = Date.parse(d);
   return Number.isFinite(t) ? new Date(t) : null;
 }
+function LiveTicker({
+  messages,
+}: {
+  messages: TickerMsg[];
+}) {
+  if (!messages.length) return null;
+  const loop = [...messages, ...messages]; // smooth loop
+
+  return (
+    <div
+      style={{
+        borderTop: "1px solid rgba(255,255,255,0.08)",
+        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        background: "rgba(255,255,255,0.03)",
+        overflow: "hidden",
+      }}
+    >
+      <style>{`
+        @keyframes ehdokas-marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+
+      <div
+        style={{
+          display: "inline-flex",
+          whiteSpace: "nowrap",
+          willChange: "transform",
+          animation: "ehdokas-marquee 38s linear infinite",
+          padding: "10px 0",
+        }}
+      >
+        {loop.map((m, i) => (
+          <span
+            key={i}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              padding: "0 14px",
+              borderRight: "1px solid rgba(255,255,255,0.08)",
+              fontSize: 13,
+              color: m.kind === "missing" ? "rgba(255,140,140,0.95)" : "rgba(255,255,255,0.85)",
+            }}
+          >
+            {m.href ? (
+              <a
+                href={m.href}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: "inherit",
+                  textDecoration: "none",
+                  borderBottom: "1px solid rgba(255,255,255,0.25)",
+                }}
+              >
+                {m.text}
+              </a>
+            ) : (
+              m.text
+            )}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
 function dayTime(d: Date) {
   return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
 }
@@ -409,6 +478,9 @@ export default function App() {
   const [index, setIndex] = useState<ElectionIndex | null>(null);
   const [feed, setFeed] = useState<Feed | null>(null);
   const [selectedElectionId, setSelectedElectionId] = useState<string | null>(null);
+  const [tickerFilter, setTickerFilter] = useState<"all" | "ok" | "missing">("all");
+  const [tickerMsgs, setTickerMsgs] = useState<TickerMsg[]>([]);
+
 
   const [query, setQuery] = useState("");
   const [selectedCandidateId, setSelectedCandidateId] = useState<string | null>(null);
@@ -539,6 +611,12 @@ export default function App() {
           background: "rgba(8,8,10,0.72)",
           borderBottom: "1px solid rgba(255,255,255,0.08)",
         }}
+        const shownTicker = useMemo(() => {
+          if (tickerFilter === "all") return tickerMsgs;
+          return tickerMsgs.filter((m) => m.kind === tickerFilter);
+        }, [tickerMsgs, tickerFilter]);
+        
+        {shownTicker.length > 0 && <LiveTicker messages={shownTicker} />}
 
         <Chip>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
@@ -667,6 +745,12 @@ export default function App() {
               >
                 {loading ? "Ladataan…" : "Päivitä tiedot"}
               </button>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              <button onClick={() => setTickerFilter("all")} style={...}>Kaikki</button>
+              <button onClick={() => setTickerFilter("ok")} style={...}>✅ Uudet</button>
+              <button onClick={() => setTickerFilter("missing")} style={...}>🔴 Puuttuvat</button>
+            </div>
+
 
               {feed?.electionDay && (
                 <Chip>
