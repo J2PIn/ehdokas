@@ -95,6 +95,25 @@ function parseDate(d: string): Date | null {
 function dayTime(d: Date) {
   return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
 }
+function useIsNarrow(breakpointPx = 860) {
+  const [narrow, setNarrow] = useState<boolean>(() =>
+    typeof window !== "undefined" ? window.innerWidth < breakpointPx : false
+  );
+
+  useEffect(() => {
+    const onResize = () => setNarrow(window.innerWidth < breakpointPx);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [breakpointPx]);
+
+  return narrow;
+}
+
+function clamp(n: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, n));
+}
+
+
 function isOnOrBefore(dateISO: string, cutoffISO: string): boolean {
   const d = parseDate(dateISO);
   const c = parseDate(cutoffISO);
@@ -151,6 +170,7 @@ function computeScores(feed: Feed, items: typeof DEFAULT_ITEMS) {
     });
 
     const pct = maxPoints === 0 ? 0 : Math.round((points / maxPoints) * 100);
+    <DocStrip perItem={s.perItem} />
     return { candidate: c, points, pct, perItem, maxPoints };
   });
 
@@ -401,6 +421,7 @@ function Modal({
 
 // ---------- App ----------
 export default function App() {
+  const isNarrow = useIsNarrow(860);
   const [index, setIndex] = useState<ElectionIndex | null>(null);
   const [feed, setFeed] = useState<Feed | null>(null);
   const [selectedElectionId, setSelectedElectionId] = useState<string | null>(null);
@@ -632,18 +653,17 @@ export default function App() {
       {/* Sortino-style ticker */}
       {shownTicker.length > 0 && <TickerBar items={shownTicker} />}
 
-      <main style={{ maxWidth: 1100, margin: "0 auto", padding: "22px 16px 48px" }}>
+      <main style={{ maxWidth: 1100, margin: "0 auto", padding: isNarrow ? "16px 12px 40px" : "22px 16px 48px"}}>
         {/* hero */}
-        <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 18, alignItems: "stretch" }}>
-          <div
-            style={{
-              borderRadius: 22,
-              border: "1px solid rgba(255,255,255,0.10)",
-              background: "rgba(255,255,255,0.05)",
-              boxShadow: "0 20px 60px rgba(0,0,0,0.35)",
-              padding: 18,
-            }}
-          >
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: isNarrow ? "1fr" : "1.2fr 0.8fr",
+                gap: 18,
+                alignItems: "stretch",
+              }}
+            >
+
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               <Chip>✅ vain julkiset linkit</Chip>
               <Chip>🧠 pisteytys selaimessa</Chip>
@@ -795,7 +815,7 @@ export default function App() {
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Hae ehdokas / puolue…"
               style={{
-                width: 280,
+                width: isNarrow ? "100%" : 280,
                 maxWidth: "100%",
                 borderRadius: 16,
                 border: "1px solid rgba(255,255,255,0.12)",
@@ -825,8 +845,10 @@ export default function App() {
                     background: "rgba(255,255,255,0.04)",
                     padding: 14,
                     display: "grid",
-                    gridTemplateColumns: "52px 1fr 180px",
+                    gridTemplateColumns: isNarrow ? "52px 1fr" : "52px 1fr 180px",
+                    gridTemplateRows: isNarrow ? "auto auto" : undefined,
                     gap: 12,
+                    alignItems: "center",
                     alignItems: "center",
                   }}
                 >
@@ -867,6 +889,7 @@ export default function App() {
                   </div>
 
                   <div>
+                    style={isNarrow ? { gridColumn: "1 / -1" } : undefined}
                     <ProgressBar value={s.pct} />
                     <div style={{ marginTop: 6, display: "flex", gap: 8, flexWrap: "wrap" }}>
                       <Chip>Katso tiedot →</Chip>
