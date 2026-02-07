@@ -290,6 +290,51 @@ function ProgressBar({ value }: { value: number }) {
   );
 }
 
+function DocStrip({
+  perItem,
+  items,
+}: {
+  perItem: Record<DisclosureKey, { has: boolean }>;
+  items: typeof DEFAULT_ITEMS;
+}) {
+  const keys = Object.keys(items) as DisclosureKey[];
+  const short: Record<DisclosureKey, string> = {
+    verovelkatodistus: "VERO",
+    luottotieto_ote: "LUOTTO",
+    huumeseula_neg: "HUUME",
+    rikosrekisteriote: "RIKOS",
+    ulosottorekisteriote: "ULOS",
+    kaupparekisteriote: "PRH",
+  };
+
+  return (
+    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+      {keys.map((k) => {
+        const ok = perItem[k]?.has;
+        return (
+          <span
+            key={k}
+            title={`${items[k].label}: ${ok ? "julkaistu" : "puuttuu"}`}
+            style={{
+              fontSize: 11,
+              fontWeight: 800,
+              letterSpacing: 0.2,
+              padding: "4px 8px",
+              borderRadius: 999,
+              border: "1px solid rgba(255,255,255,0.10)",
+              background: ok ? "rgba(120,255,180,0.12)" : "rgba(255,120,120,0.10)",
+              color: ok ? "rgba(160,255,210,0.95)" : "rgba(255,170,170,0.95)",
+            }}
+          >
+            {short[k]}
+          </span>
+        );
+      })}
+    </div>
+  );
+}
+
+
 function Modal({
   open,
   onClose,
@@ -813,6 +858,9 @@ export default function App() {
                       </div>
                       {s.candidate.party && <Chip>{s.candidate.party}</Chip>}
                     </div>
+                    <div style={{ marginTop: 8 }}>
+                        <DocStrip perItem={s.perItem} items={items} />
+                      </div>
                     <div style={{ marginTop: 4, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
                       {s.points} / {s.maxPoints} pistettä • {s.pct}% avoimuus
                     </div>
