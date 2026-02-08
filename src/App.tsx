@@ -432,7 +432,7 @@ function Modal({
         <div style={{ padding: 18, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
             <div style={{ fontWeight: 700 }}>{title}</div>
-            <button
+            <s-btn
               onClick={onClose}
               style={{
                 border: "1px solid rgba(255,255,255,0.12)",
@@ -444,7 +444,7 @@ function Modal({
               }}
             >
               Sulje
-            </button>
+            </s-btn>
           </div>
         </div>
         <div style={{ padding: 18 }}>{children}</div>
@@ -598,7 +598,7 @@ export default function App() {
           "radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,0.10), transparent 60%), radial-gradient(1000px 500px at 90% 20%, rgba(255,255,255,0.08), transparent 55%), linear-gradient(180deg, #070708, #0b0b0d 60%, #070708)",
       }}
     >
-      {/* top bar */}
+      {/* s-top */}
       <div
         style={{
           position: "sticky",
@@ -665,7 +665,7 @@ export default function App() {
               ) : null}
             </Chip>
 
-            <button
+            <s-btn
               onClick={() => setHowOpen(true)}
               style={{
                 cursor: "pointer",
@@ -679,7 +679,7 @@ export default function App() {
               }}
             >
               Miten tämä toimii
-            </button>
+            </s-btn>
           </div>
         </div>
       </div>
@@ -687,8 +687,8 @@ export default function App() {
       {/* Sortino-style ticker */}
       {shownTicker.length > 0 && <TickerBar items={shownTicker} />}
 
-      <main className="container">
-        {/* hero */}
+      <s-wrap className="container">
+        {/* s-grid */}
             <div className="heroGrid">
 
 
@@ -708,7 +708,7 @@ export default function App() {
             </p>
 
             <div style={{ marginTop: 14, display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
-              <button
+              <s-btn
                 onClick={loadIndex}
                 disabled={loading}
                 style={{
@@ -723,19 +723,19 @@ export default function App() {
                 }}
               >
                 {loading ? "Ladataan…" : "Päivitä tiedot"}
-              </button>
+              </s-btn>
 
               {/* ticker filters */}
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                <button onClick={() => setTickerFilter("all")} style={filterBtn(tickerFilter === "all")}>
+                <s-btn onClick={() => setTickerFilter("all")} style={filterBtn(tickerFilter === "all")}>
                   Kaikki
-                </button>
-                <button onClick={() => setTickerFilter("ok")} style={filterBtn(tickerFilter === "ok")}>
+                </s-btn>
+                <s-btn onClick={() => setTickerFilter("ok")} style={filterBtn(tickerFilter === "ok")}>
                   ✅ Uudet
-                </button>
-                <button onClick={() => setTickerFilter("missing")} style={filterBtn(tickerFilter === "missing")}>
+                </s-btn>
+                <s-btn onClick={() => setTickerFilter("missing")} style={filterBtn(tickerFilter === "missing")}>
                   🔴 Puuttuvat
-                </button>
+                </s-btn>
               </div>
 
               {feed?.electionDay && (
@@ -863,10 +863,10 @@ export default function App() {
 
             {computed &&
               filtered.map((s, idx) => (
-                <button
+                <s-btn
                   key={s.candidate.id}
                   onClick={() => setSelectedCandidateId(s.candidate.id)}
-                  <button
+                  <s-btn
                     key={s.candidate.id}
                     onClick={() => setSelectedCandidateId(s.candidate.id)}
                     className="candidateRow"
@@ -915,7 +915,7 @@ export default function App() {
                       <Chip>Katso tiedot →</Chip>
                     </div>
                   </div>
-                </button>
+                </s-btn>
               ))}
           </div>
         </div>
@@ -939,7 +939,7 @@ export default function App() {
           </div>
           <div>Vihje ehdokkaille: julkaise dokumentit (mieluiten redaktioituna) ja lisää pysyvä linkki.</div>
         </div>
-      </main>
+      </s-wrap>
 
       {/* Candidate modal */}
       <Modal
