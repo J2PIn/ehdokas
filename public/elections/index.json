@@ -9,7 +9,7 @@
       "electionDay": "2027-04-18",
       "feedUrl": "https://ehdokas.site/elections/fi-2027-eduskunta/feed.json",
       "lastUpdated": "2026-02-06T00:00:00Z"
-    },
+    }
     {
       "id": "fi-2029-kunta-alue",
       "name": "Municipal & County elections (Kuntavaalit & Aluevaalit)",
