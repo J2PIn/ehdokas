@@ -95,25 +95,6 @@ function parseDate(d: string): Date | null {
 function dayTime(d: Date) {
   return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
 }
-function useIsNarrow(breakpointPx = 860) {
-  const [narrow, setNarrow] = useState<boolean>(() =>
-    typeof window !== "undefined" ? window.innerWidth < breakpointPx : false
-  );
-
-  useEffect(() => {
-    const onResize = () => setNarrow(window.innerWidth < breakpointPx);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, [breakpointPx]);
-
-  return narrow;
-}
-
-function clamp(n: number, min: number, max: number) {
-  return Math.max(min, Math.min(max, n));
-}
-
-
 function isOnOrBefore(dateISO: string, cutoffISO: string): boolean {
   const d = parseDate(dateISO);
   const c = parseDate(cutoffISO);
@@ -170,7 +151,6 @@ function computeScores(feed: Feed, items: typeof DEFAULT_ITEMS) {
     });
 
     const pct = maxPoints === 0 ? 0 : Math.round((points / maxPoints) * 100);
-    <DocStrip perItem={s.perItem} />
     return { candidate: c, points, pct, perItem, maxPoints };
   });
 
@@ -210,184 +190,27 @@ function buildTicker(feed: Feed, items: typeof DEFAULT_ITEMS): TickerMsg[] {
       const has = !!latestEvidenceBefore(c.disclosures?.[k], cutoff);
       if (!has) miss.push(items[k].label);
     });
+
     if (miss.length === 0) {
       return { kind: "ok", text: `🏁 ${c.name}${c.party ? ` (${c.party})` : ""} • kaikki dokumentit julkaistu` };
     }
+
     const shown = miss.slice(0, 3);
     const more = miss.length > 3 ? ` +${miss.length - 3}` : "";
     return { kind: "missing", text: `🔴 ${c.name}${c.party ? ` (${c.party})` : ""} • puuttuu: ${shown.join(", ")}${more}` };
   });
 
-  return [...events.slice(0, 25), ...missing.slice(0, 25)];
+  return [...events.slice(0, 30), ...missing.slice(0, 30)];
 }
 
-function TickerBar({ items }: { items: TickerMsg[] }) {
-  if (!items.length) return null;
-  const loop = [...items, ...items];
-
-  return (
-    <div style={{ minHeight: "100vh", ... }}>
-    <style>{`
-      /* Responsive system */
-      .container { max-width: 1100px; margin: 0 auto; padding: 22px 16px 48px; }
-      .heroGrid { display: grid; grid-template-columns: 1fr; gap: 18px; }
-      .topRow { display:flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-      .search { width: 100%; max-width: 520px; }
-
-      .candidateRow {
-        cursor: pointer;
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.04);
-        padding: 14px;
-        display: grid;
-        grid-template-columns: 52px 1fr;
-        gap: 12px;
-        align-items: start;
-        text-align: left;
-      }
-      .candidateRight { grid-column: 1 / -1; }
-
-      @media (min-width: 900px) {
-        .heroGrid { grid-template-columns: 1.2fr 0.8fr; }
-        .search { width: 280px; }
-        .candidateRow { grid-template-columns: 52px 1fr 180px; align-items: center; }
-        .candidateRight { grid-column: auto; }
-      }
-
-      @media (max-width: 520px) {
-        .container { padding: 14px 12px 36px; }
-        h1 { font-size: 26px !important; }
-      }
-    `}</style>
-    <div
-      style={{
-        borderTop: "1px solid rgba(255,255,255,0.08)",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
-        background: "rgba(255,255,255,0.03)",
-        overflow: "hidden",
-      }}
-    >
-      <style>{`
-        @keyframes ehdokas-marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .ehdokas-marquee { animation: ehdokas-marquee 34s linear infinite; will-change: transform; }
-        .ehdokas-marquee:hover { animation-play-state: paused; }
-        @media (prefers-reduced-motion: reduce) { .ehdokas-marquee { animation: none !important; transform: none !important; } }
-      `}</style>
-
-      <div className="ehdokas-marquee" style={{ display: "inline-flex", whiteSpace: "nowrap", padding: "10px 0" }}>
-        {loop.map((m, i) => (
-          <span
-            key={i}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              padding: "0 14px",
-              borderRight: "1px solid rgba(255,255,255,0.08)",
-              fontSize: 13,
-              color: m.kind === "missing" ? "rgba(255,140,140,0.95)" : "rgba(255,255,255,0.85)",
-            }}
-          >
-            {m.href ? (
-              <a
-                href={m.href}
-                target="_blank"
-                rel="noreferrer"
-                style={{ color: "inherit", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.25)" }}
-              >
-                {m.text}
-              </a>
-            ) : (
-              m.text
-            )}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ---------- UI components ----------
-function Chip({ children }: { children: React.ReactNode }) {
-  return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 8,
-        padding: "6px 10px",
-        borderRadius: 999,
-        border: "1px solid rgba(255,255,255,0.10)",
-        background: "rgba(255,255,255,0.06)",
-        fontSize: 12,
-        color: "rgba(255,255,255,0.85)",
-        whiteSpace: "nowrap",
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
+// ---------- UI bits ----------
 function ProgressBar({ value }: { value: number }) {
   return (
-    <div style={{ height: 10, width: "100%", borderRadius: 999, background: "rgba(255,255,255,0.10)", overflow: "hidden" }}>
-      <div
-        style={{
-          height: "100%",
-          width: `${Math.max(0, Math.min(100, value))}%`,
-          borderRadius: 999,
-          background: "linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.55))",
-        }}
-      />
+    <div className="h-2.5 w-full rounded-full bg-slate-900/10 overflow-hidden">
+      <div className="h-full rounded-full bg-slate-900/70" style={{ width: `${Math.max(0, Math.min(100, value))}%` }} />
     </div>
   );
 }
-
-function DocStrip({
-  perItem,
-  items,
-}: {
-  perItem: Record<DisclosureKey, { has: boolean }>;
-  items: typeof DEFAULT_ITEMS;
-}) {
-  const keys = Object.keys(items) as DisclosureKey[];
-  const short: Record<DisclosureKey, string> = {
-    verovelkatodistus: "VERO",
-    luottotieto_ote: "LUOTTO",
-    huumeseula_neg: "HUUME",
-    rikosrekisteriote: "RIKOS",
-    ulosottorekisteriote: "ULOS",
-    kaupparekisteriote: "PRH",
-  };
-
-  return (
-    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-      {keys.map((k) => {
-        const ok = perItem[k]?.has;
-        return (
-          <span
-            key={k}
-            title={`${items[k].label}: ${ok ? "julkaistu" : "puuttuu"}`}
-            style={{
-              fontSize: 11,
-              fontWeight: 800,
-              letterSpacing: 0.2,
-              padding: "4px 8px",
-              borderRadius: 999,
-              border: "1px solid rgba(255,255,255,0.10)",
-              background: ok ? "rgba(120,255,180,0.12)" : "rgba(255,120,120,0.10)",
-              color: ok ? "rgba(160,255,210,0.95)" : "rgba(255,170,170,0.95)",
-            }}
-          >
-            {short[k]}
-          </span>
-        );
-      })}
-    </div>
-  );
-}
-
 
 function Modal({
   open,
@@ -406,56 +229,97 @@ function Modal({
       role="dialog"
       aria-modal="true"
       onClick={onClose}
-      style={{
-        position: "fixed",
-        inset: 0,
-        background: "rgba(0,0,0,0.6)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 16,
-        zIndex: 50,
-      }}
+      className="fixed inset-0 z-50 bg-black/60 p-4 flex items-center justify-center"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        style={{
-          width: "min(900px, 100%)",
-          maxHeight: "85vh",
-          overflow: "auto",
-          borderRadius: 18,
-          background: "rgba(18,18,20,0.98)",
-          border: "1px solid rgba(255,255,255,0.10)",
-          boxShadow: "0 30px 80px rgba(0,0,0,0.55)",
-        }}
+        className="w-full max-w-3xl max-h-[85vh] overflow-auto rounded-2xl border border-white/10 bg-white/90 backdrop-blur shadow-2xl"
       >
-        <div style={{ padding: 18, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
-            <div style={{ fontWeight: 700 }}>{title}</div>
-            <s-btn
-              onClick={onClose}
-              style={{
-                border: "1px solid rgba(255,255,255,0.12)",
-                background: "rgba(255,255,255,0.06)",
-                color: "white",
-                borderRadius: 12,
-                padding: "6px 10px",
-                cursor: "pointer",
-              }}
-            >
-              Sulje
-            </s-btn>
-          </div>
+        <div className="p-4 border-b border-slate-900/10 flex items-center justify-between gap-3">
+          <div className="font-semibold text-slate-900">{title}</div>
+          <button
+            onClick={onClose}
+            className="rounded-xl px-3 py-2 text-sm font-semibold border border-slate-900/10 bg-white hover:bg-slate-50"
+          >
+            Sulje
+          </button>
         </div>
-        <div style={{ padding: 18 }}>{children}</div>
+        <div className="p-4 text-slate-900">{children}</div>
       </div>
+    </div>
+  );
+}
+
+function TickerBar({ items }: { items: TickerMsg[] }) {
+  if (!items.length) return null;
+  const loop = [...items, ...items];
+
+  return (
+    <div className="border-y border-slate-900/10 bg-white/60 backdrop-blur overflow-hidden">
+      <div className="marquee inline-flex whitespace-nowrap py-2">
+        {loop.map((m, i) => (
+          <span key={i} className="inline-flex items-center gap-3 px-4 border-r border-slate-900/10 text-sm">
+            {m.href ? (
+              <a
+                href={m.href}
+                target="_blank"
+                rel="noreferrer"
+                className={
+                  m.kind === "missing"
+                    ? "text-rose-600 hover:underline underline-offset-4"
+                    : "text-slate-700 hover:underline underline-offset-4"
+                }
+              >
+                {m.text}
+              </a>
+            ) : (
+              <span className={m.kind === "missing" ? "text-rose-600" : "text-slate-700"}>{m.text}</span>
+            )}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DocStrip({
+  perItem,
+}: {
+  perItem: Record<DisclosureKey, { has: boolean; points: number; evidence: Evidence | null }>;
+}) {
+  const order: Array<[DisclosureKey, string]> = [
+    ["verovelkatodistus", "VERO"],
+    ["luottotieto_ote", "LUOTTO"],
+    ["huumeseula_neg", "HUUME"],
+    ["rikosrekisteriote", "RIKOS"],
+    ["ulosottorekisteriote", "ULOS"],
+    ["kaupparekisteriote", "PRH"],
+  ];
+
+  return (
+    <div className="flex flex-wrap gap-2 mt-2">
+      {order.map(([k, label]) => {
+        const ok = perItem[k]?.has;
+        return (
+          <span
+            key={k}
+            className={
+              ok
+                ? "text-[11px] font-bold rounded-full px-2 py-1 border border-emerald-200 bg-emerald-50 text-emerald-700"
+                : "text-[11px] font-bold rounded-full px-2 py-1 border border-rose-200 bg-rose-50 text-rose-700"
+            }
+            title={`${label}: ${ok ? "julkaistu" : "puuttuu"}`}
+          >
+            {label}
+          </span>
+        );
+      })}
     </div>
   );
 }
 
 // ---------- App ----------
 export default function App() {
-  const isNarrow = useIsNarrow(860);
   const [index, setIndex] = useState<ElectionIndex | null>(null);
   const [feed, setFeed] = useState<Feed | null>(null);
   const [selectedElectionId, setSelectedElectionId] = useState<string | null>(null);
@@ -578,210 +442,133 @@ export default function App() {
 
   const dLeft = feed?.electionDay ? daysUntil(feed.electionDay) : null;
 
-  const filterBtn = (active: boolean): React.CSSProperties => ({
-    cursor: "pointer",
-    borderRadius: 14,
-    padding: "8px 10px",
-    border: "1px solid rgba(255,255,255,0.12)",
-    background: active ? "rgba(255,255,255,0.14)" : "rgba(255,255,255,0.06)",
-    color: "white",
-    fontSize: 13,
-    fontWeight: 700,
-  });
-
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        color: "white",
-        background:
-          "radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,0.10), transparent 60%), radial-gradient(1000px 500px at 90% 20%, rgba(255,255,255,0.08), transparent 55%), linear-gradient(180deg, #070708, #0b0b0d 60%, #070708)",
-      }}
-    >
-      {/* s-top */}
-      <div
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 10,
-          backdropFilter: "blur(10px)",
-          background: "rgba(8,8,10,0.72)",
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1100,
-            margin: "0 auto",
-            padding: "14px 16px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 12,
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
-            <div
-              style={{
-                width: 38,
-                height: 38,
-                borderRadius: 14,
-                background: "rgba(255,255,255,0.08)",
-                border: "1px solid rgba(255,255,255,0.10)",
-                display: "grid",
-                placeItems: "center",
-                fontWeight: 800,
-              }}
-              title="ehdokas.site"
-            >
+    <div className="min-h-screen">
+      {/* Top bar (Sortino feel) */}
+      <div className="sticky top-0 z-20 border-b border-slate-900/10 bg-white/70 backdrop-blur">
+        <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="h-10 w-10 rounded-2xl bg-slate-900/5 border border-slate-900/10 grid place-items-center font-black text-slate-900">
               e
             </div>
-            <div style={{ minWidth: 0 }}>
-              <div style={{ fontWeight: 800, letterSpacing: 0.2 }}>ehdokas.site</div>
-              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
+            <div className="min-w-0">
+              <div className="font-extrabold text-slate-900">ehdokas.site</div>
+              <div className="text-xs text-slate-600 truncate">
                 Ehdokkaiden avoimuus – vain julkiset todisteet, ei tallennusta
               </div>
             </div>
           </div>
 
-          <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-            <Chip>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-                <span
-                  style={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: 999,
-                    background: "rgba(120,255,180,0.9)",
-                    boxShadow: "0 0 16px rgba(120,255,180,0.55)",
-                  }}
-                />
-                LIVE
-              </span>
+          <div className="flex items-center gap-2 flex-wrap justify-end">
+            <span className="inline-flex items-center gap-2 rounded-full border border-slate-900/10 bg-white px-3 py-2 text-xs font-semibold text-slate-700">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_16px_rgba(16,185,129,0.55)]" />
+              LIVE
               {lastRefresh ? (
-                <span style={{ color: "rgba(255,255,255,0.7)" }}>
-                  • {new Date(lastRefresh).toLocaleTimeString("fi-FI")}
-                </span>
+                <span className="text-slate-500">• {new Date(lastRefresh).toLocaleTimeString("fi-FI")}</span>
               ) : null}
-            </Chip>
+            </span>
 
-            <s-btn
+            <button
               onClick={() => setHowOpen(true)}
-              style={{
-                cursor: "pointer",
-                borderRadius: 14,
-                padding: "9px 12px",
-                border: "1px solid rgba(255,255,255,0.12)",
-                background: "rgba(255,255,255,0.06)",
-                color: "white",
-                fontSize: 13,
-                fontWeight: 600,
-              }}
+              className="rounded-xl px-3 py-2 text-sm font-semibold border border-slate-900/10 bg-white hover:bg-slate-50"
             >
               Miten tämä toimii
-            </s-btn>
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Sortino-style ticker */}
+      {/* Ticker (Sortino marquee) */}
       {shownTicker.length > 0 && <TickerBar items={shownTicker} />}
 
-      <s-wrap className="container">
-        {/* s-grid */}
-            <div className="heroGrid">
-
-
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-              <Chip>✅ vain julkiset linkit</Chip>
-              <Chip>🧠 pisteytys selaimessa</Chip>
-              <Chip>🗄️ ei tallennusta</Chip>
-              <Chip>📅 cutoff = vaalipäivä</Chip>
+      <main className="mx-auto max-w-5xl px-4 py-6 pb-12">
+        {/* Hero + chooser grid (mobile-first) */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_.8fr] gap-4 lg:gap-5">
+          <div className="rounded-3xl border border-slate-900/10 bg-white/70 backdrop-blur shadow-soft p-4 lg:p-5">
+            <div className="flex flex-wrap gap-2">
+              <span className="rounded-full border border-slate-900/10 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700">
+                ✅ vain julkiset linkit
+              </span>
+              <span className="rounded-full border border-slate-900/10 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700">
+                🧠 pisteytys selaimessa
+              </span>
+              <span className="rounded-full border border-slate-900/10 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700">
+                🗄️ ei tallennusta
+              </span>
+              <span className="rounded-full border border-slate-900/10 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700">
+                📅 cutoff = vaalipäivä
+              </span>
             </div>
 
-            <h1 style={{ margin: "14px 0 6px", fontSize: 34, lineHeight: 1.1 }}>
+            <h1 className="mt-4 text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900">
               Kuka on avoin – ennen vaalipäivää?
             </h1>
-            <p style={{ margin: 0, color: "rgba(255,255,255,0.78)", fontSize: 14, maxWidth: 760 }}>
-              ehdokas.site listaa, mitä keskeisiä avoimuusdokumentteja ehdokkaat ovat julkaisseet
-              (verifioitavina linkkeinä) <b>ennen vaalipäivää</b>. Sivusto ei tallenna mitään materiaalia.
+            <p className="mt-2 text-sm text-slate-700 max-w-2xl">
+              ehdokas.site listaa, mitä keskeisiä avoimuusdokumentteja ehdokkaat ovat julkaisseet{" "}
+              <b>ennen vaalipäivää</b>. Sivusto ei tallenna mitään materiaalia.
             </p>
 
-            <div style={{ marginTop: 14, display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
-              <s-btn
+            <div className="mt-4 flex flex-wrap gap-2 items-center">
+              <button
                 onClick={loadIndex}
                 disabled={loading}
-                style={{
-                  cursor: loading ? "not-allowed" : "pointer",
-                  borderRadius: 16,
-                  padding: "10px 12px",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  background: "rgba(255,255,255,0.10)",
-                  color: "white",
-                  fontSize: 13,
-                  fontWeight: 700,
-                }}
+                className="rounded-2xl px-4 py-2 text-sm font-bold border border-slate-900/10 bg-white hover:bg-slate-50 disabled:opacity-60"
               >
                 {loading ? "Ladataan…" : "Päivitä tiedot"}
-              </s-btn>
+              </button>
 
-              {/* ticker filters */}
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                <s-btn onClick={() => setTickerFilter("all")} style={filterBtn(tickerFilter === "all")}>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setTickerFilter("all")}
+                  className={
+                    "rounded-2xl px-3 py-2 text-sm font-bold border border-slate-900/10 " +
+                    (tickerFilter === "all" ? "bg-slate-900 text-white" : "bg-white hover:bg-slate-50 text-slate-800")
+                  }
+                >
                   Kaikki
-                </s-btn>
-                <s-btn onClick={() => setTickerFilter("ok")} style={filterBtn(tickerFilter === "ok")}>
+                </button>
+                <button
+                  onClick={() => setTickerFilter("ok")}
+                  className={
+                    "rounded-2xl px-3 py-2 text-sm font-bold border border-slate-900/10 " +
+                    (tickerFilter === "ok" ? "bg-slate-900 text-white" : "bg-white hover:bg-slate-50 text-slate-800")
+                  }
+                >
                   ✅ Uudet
-                </s-btn>
-                <s-btn onClick={() => setTickerFilter("missing")} style={filterBtn(tickerFilter === "missing")}>
+                </button>
+                <button
+                  onClick={() => setTickerFilter("missing")}
+                  className={
+                    "rounded-2xl px-3 py-2 text-sm font-bold border border-slate-900/10 " +
+                    (tickerFilter === "missing" ? "bg-slate-900 text-white" : "bg-white hover:bg-slate-50 text-slate-800")
+                  }
+                >
                   🔴 Puuttuvat
-                </s-btn>
+                </button>
               </div>
 
               {feed?.electionDay && (
-                <Chip>
-                  Vaalipäivä: <b style={{ color: "white" }}>{feed.electionDay}</b>
-                  {typeof dLeft === "number" && (
-                    <span style={{ color: "rgba(255,255,255,0.7)" }}>
-                      {" "}
-                      • {dLeft >= 0 ? `${dLeft} pv` : `${Math.abs(dLeft)} pv sitten`}
-                    </span>
-                  )}
-                </Chip>
+                <span className="rounded-full border border-slate-900/10 bg-white px-3 py-2 text-xs font-semibold text-slate-700">
+                  Vaalipäivä: <b className="text-slate-900">{feed.electionDay}</b>
+                  {typeof dLeft === "number" ? (
+                    <span className="text-slate-500"> • {dLeft >= 0 ? `${dLeft} pv` : `${Math.abs(dLeft)} pv sitten`}</span>
+                  ) : null}
+                </span>
               )}
             </div>
 
             {err && (
-              <div
-                style={{
-                  marginTop: 12,
-                  padding: 12,
-                  borderRadius: 16,
-                  border: "1px solid rgba(255,120,120,0.25)",
-                  background: "rgba(255,120,120,0.08)",
-                  color: "rgba(255,255,255,0.9)",
-                  fontSize: 13,
-                  whiteSpace: "pre-wrap",
-                }}
-              >
+              <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800 whitespace-pre-wrap">
                 {err}
               </div>
             )}
           </div>
 
-          <div
-            style={{
-              borderRadius: 22,
-              border: "1px solid rgba(255,255,255,0.10)",
-              background: "rgba(255,255,255,0.04)",
-              padding: 18,
-            }}
-          >
-            <div style={{ fontWeight: 800, marginBottom: 8 }}>Valitse vaali</div>
-
+          <div className="rounded-3xl border border-slate-900/10 bg-white/60 backdrop-blur p-4 lg:p-5">
+            <div className="font-extrabold text-slate-900">Valitse vaali</div>
             {index ? (
               <>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.70)", marginBottom: 10 }}>
+                <div className="mt-1 text-xs text-slate-600">
                   {index.jurisdiction} • index päivitetty {index.lastUpdated}
                 </div>
 
@@ -793,20 +580,14 @@ export default function App() {
                     const chosen = index.elections.find((x) => x.id === id);
                     if (chosen) loadFeed(chosen.feedUrl);
                   }}
-                  style={{
-                    width: "100%",
-                    borderRadius: 16,
-                    border: "1px solid rgba(255,255,255,0.12)",
-                    background: "rgba(0,0,0,0.25)",
-                    color: "white",
-                    padding: "10px 12px",
-                    fontSize: 13,
-                    outline: "none",
-                  }}
+                  className="mt-3 w-full rounded-2xl border border-slate-900/10 bg-white px-3 py-3 text-sm text-slate-900"
                 >
                   {index.elections
                     .slice()
-                    .sort((a, b) => (parseDate(a.electionDay)?.getTime() ?? 0) - (parseDate(b.electionDay)?.getTime() ?? 0))
+                    .sort(
+                      (a, b) =>
+                        (parseDate(a.electionDay)?.getTime() ?? 0) - (parseDate(b.electionDay)?.getTime() ?? 0)
+                    )
                     .map((e) => (
                       <option key={e.id} value={e.id}>
                         {e.electionDay} — {e.name}
@@ -814,244 +595,212 @@ export default function App() {
                     ))}
                 </select>
 
-                <div style={{ marginTop: 14, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
-                  <b style={{ color: "white" }}>Ei tallennusta:</b> data ladataan vain julkisista JSON-tiedostoista ja
+                <div className="mt-4 text-xs text-slate-600">
+                  <b className="text-slate-900">Ei tallennusta:</b> data ladataan vain julkisista JSON-tiedostoista ja
                   pisteytetään selaimessa.
                 </div>
               </>
             ) : (
-              <div style={{ fontSize: 13, color: "rgba(255,255,255,0.75)" }}>Ladataan vaali-indeksi…</div>
+              <div className="mt-2 text-sm text-slate-600">Ladataan vaali-indeksi…</div>
             )}
           </div>
         </div>
 
-        {/* leaderboard */}
-        <div style={{ marginTop: 18 }}>
-          <input className="search" ... />
-          <div className="topRow">
+        {/* Ranking */}
+        <div className="mt-6">
+          <div className="flex flex-wrap justify-between gap-3 items-end">
             <div>
-              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.70)" }}>Ranking</div>
-              <div style={{ fontSize: 20, fontWeight: 800 }}>{feed?.electionName ? feed.electionName : "Seuraavat vaalit"}</div>
-              {feed?.lastUpdated && (
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
-                  Feed päivitetty: <span style={{ color: "rgba(255,255,255,0.9)" }}>{feed.lastUpdated}</span>
+              <div className="text-xs text-slate-600">Ranking</div>
+              <div className="text-xl font-extrabold text-slate-900">
+                {feed?.electionName ? feed.electionName : "Seuraavat vaalit"}
+              </div>
+              {feed?.lastUpdated ? (
+                <div className="text-xs text-slate-600">
+                  Feed päivitetty: <span className="text-slate-800">{feed.lastUpdated}</span>
                 </div>
-              )}
+              ) : null}
             </div>
 
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Hae ehdokas / puolue…"
-              style={{
-                width: isNarrow ? "100%" : 280,
-                maxWidth: "100%",
-                borderRadius: 16,
-                border: "1px solid rgba(255,255,255,0.12)",
-                background: "rgba(0,0,0,0.25)",
-                color: "white",
-                padding: "10px 12px",
-                fontSize: 13,
-                outline: "none",
-              }}
+              className="w-full md:w-[320px] rounded-2xl border border-slate-900/10 bg-white px-3 py-3 text-sm text-slate-900"
             />
           </div>
 
-          <div style={{ marginTop: 12, display: "grid", gridTemplateColumns: "1fr", gap: 10 }}>
-            {!computed && <div style={{ color: "rgba(255,255,255,0.70)", fontSize: 13 }}>Lataa vaali nähdäksesi rankingin.</div>}
-            {computed && filtered.length === 0 && <div style={{ color: "rgba(255,255,255,0.70)", fontSize: 13 }}>Ei hakutuloksia.</div>}
-
-            {computed &&
+          <div className="mt-4 grid gap-3">
+            {!computed ? (
+              <div className="text-sm text-slate-600">Lataa vaali nähdäksesi rankingin.</div>
+            ) : filtered.length === 0 ? (
+              <div className="text-sm text-slate-600">Ei hakutuloksia.</div>
+            ) : (
               filtered.map((s, idx) => (
-                <s-btn
+                <button
                   key={s.candidate.id}
                   onClick={() => setSelectedCandidateId(s.candidate.id)}
-                  <s-btn
-                    key={s.candidate.id}
-                    onClick={() => setSelectedCandidateId(s.candidate.id)}
-                    className="candidateRow"
-                  >
+                  className="rounded-3xl border border-slate-900/10 bg-white/70 backdrop-blur px-4 py-4 text-left hover:bg-white"
+                >
+                  <div className="grid grid-cols-[52px_1fr] md:grid-cols-[52px_1fr_200px] gap-3 items-start md:items-center">
+                    <div className="h-12 w-12 rounded-2xl bg-slate-900/5 border border-slate-900/10 overflow-hidden grid place-items-center font-black text-slate-900">
+                      {s.candidate.photoUrl ? (
+                        <img src={s.candidate.photoUrl} alt="" className="h-full w-full object-cover" />
+                      ) : (
+                        <span>{idx + 1}</span>
+                      )}
+                    </div>
 
-                  <div
-                    style={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: 16,
-                      background: "rgba(255,255,255,0.08)",
-                      border: "1px solid rgba(255,255,255,0.10)",
-                      display: "grid",
-                      placeItems: "center",
-                      overflow: "hidden",
-                      fontWeight: 900,
-                    }}
-                    title={`Sija ${idx + 1}`}
-                  >
-                    {s.candidate.photoUrl ? (
-                      <img src={s.candidate.photoUrl} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                    ) : (
-                      <span>{idx + 1}</span>
-                    )}
-                  </div>
-
-                  <div style={{ minWidth: 0 }}>
-                    <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
-                      <div style={{ fontWeight: 900, fontSize: 15, overflow: "hidden", textOverflow: "ellipsis" }}>
-                        {s.candidate.name}
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <div className="font-extrabold text-slate-900 truncate">{s.candidate.name}</div>
+                        {s.candidate.party ? (
+                          <span className="rounded-full border border-slate-900/10 bg-white px-3 py-1 text-xs font-semibold text-slate-700">
+                            {s.candidate.party}
+                          </span>
+                        ) : null}
                       </div>
-                      {s.candidate.party && <Chip>{s.candidate.party}</Chip>}
-                    </div>
-                    <div style={{ marginTop: 8 }}>
-                        <DocStrip perItem={s.perItem} items={items} />
-                      </div>
-                    <div style={{ marginTop: 4, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
-                      {s.points} / {s.maxPoints} pistettä • {s.pct}% avoimuus
-                    </div>
-                  </div>
 
-                  <div>
-                    style={isNarrow ? { gridColumn: "1 / -1" } : undefined}
-                    <ProgressBar value={s.pct} />
-                    <div style={{ marginTop: 6, display: "flex", gap: 8, flexWrap: "wrap" }}>
-                      <Chip>Katso tiedot →</Chip>
+                      <div className="mt-1 text-xs text-slate-600">
+                        {s.points} / {s.maxPoints} pistettä • {s.pct}% avoimuus
+                      </div>
+
+                      {/* Sortino-like “status strip” */}
+                      <DocStrip perItem={s.perItem} />
+                    </div>
+
+                    <div className="mt-3 md:mt-0 md:text-right md:self-center">
+                      <ProgressBar value={s.pct} />
+                      <div className="mt-2 text-xs font-bold text-slate-700">Katso tiedot →</div>
                     </div>
                   </div>
-                </s-btn>
-              ))}
+                </button>
+              ))
+            )}
+          </div>
+
+          <div className="mt-8 border-t border-slate-900/10 pt-4 text-xs text-slate-600 flex flex-wrap justify-between gap-3">
+            <div>
+              <b className="text-slate-900">Storage-free:</b> pisteytys tapahtuu selaimessa. Linkit vievät ulkoisiin lähteisiin.
+            </div>
+            <div>Vihje ehdokkaille: julkaise dokumentit (mieluiten redaktioituna) ja lisää pysyvä linkki.</div>
           </div>
         </div>
-
-        {/* footer */}
-        <div
-          style={{
-            marginTop: 26,
-            borderTop: "1px solid rgba(255,255,255,0.08)",
-            paddingTop: 14,
-            color: "rgba(255,255,255,0.70)",
-            fontSize: 12,
-            display: "flex",
-            justifyContent: "space-between",
-            gap: 12,
-            flexWrap: "wrap",
-          }}
-        >
-          <div>
-            <b style={{ color: "white" }}>Storage-free:</b> pisteytys tapahtuu selaimessa. Linkit vievät ulkoisiin lähteisiin.
-          </div>
-          <div>Vihje ehdokkaille: julkaise dokumentit (mieluiten redaktioituna) ja lisää pysyvä linkki.</div>
-        </div>
-      </s-wrap>
+      </main>
 
       {/* Candidate modal */}
       <Modal
         open={!!selected}
         onClose={() => setSelectedCandidateId(null)}
-        title={selected ? `${selected.candidate.name}${selected.candidate.party ? ` — ${selected.candidate.party}` : ""}` : ""}
+        title={
+          selected ? `${selected.candidate.name}${selected.candidate.party ? ` — ${selected.candidate.party}` : ""}` : ""
+        }
       >
-        {selected && (
+        {selected ? (
           <>
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 12 }}>
-              <Chip>
-                Avoimuus: <b style={{ color: "white" }}>{selected.pct}%</b>
-              </Chip>
-              <Chip>
-                Pisteet:{" "}
-                <b style={{ color: "white" }}>
-                  {selected.points}/{selected.maxPoints}
-                </b>
-              </Chip>
-              {feed?.electionDay && (
-                <Chip>
-                  Cutoff (vaalipäivä): <b style={{ color: "white" }}>{feed.electionDay}</b>
-                </Chip>
-              )}
-              {selected.candidate.website && (
-                <a href={selected.candidate.website} target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
-                  <Chip>🌐 kotisivu</Chip>
+            <div className="flex flex-wrap gap-2 mb-4">
+              <span className="rounded-full border border-slate-900/10 bg-white px-3 py-2 text-xs font-semibold text-slate-700">
+                Avoimuus: <b className="text-slate-900">{selected.pct}%</b>
+              </span>
+              <span className="rounded-full border border-slate-900/10 bg-white px-3 py-2 text-xs font-semibold text-slate-700">
+                Pisteet: <b className="text-slate-900">{selected.points}/{selected.maxPoints}</b>
+              </span>
+              {feed?.electionDay ? (
+                <span className="rounded-full border border-slate-900/10 bg-white px-3 py-2 text-xs font-semibold text-slate-700">
+                  Cutoff (vaalipäivä): <b className="text-slate-900">{feed.electionDay}</b>
+                </span>
+              ) : null}
+              {selected.candidate.website ? (
+                <a
+                  href={selected.candidate.website}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full border border-slate-900/10 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                >
+                  🌐 kotisivu
                 </a>
-              )}
+              ) : null}
             </div>
 
-            <div style={{ display: "grid", gap: 10 }}>
+            <div className="grid gap-3">
               {(Object.keys(items) as DisclosureKey[]).map((k) => {
                 const row = selected.perItem[k];
+                const label = items[k].label;
+                const desc = items[k].description;
+
                 return (
-                  <div
-                    key={k}
-                    style={{
-                      borderRadius: 16,
-                      border: "1px solid rgba(255,255,255,0.10)",
-                      background: "rgba(255,255,255,0.04)",
-                      padding: 14,
-                    }}
-                  >
-                    <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-                      <div style={{ minWidth: 0 }}>
-                        <div style={{ fontWeight: 900 }}>{items[k].label}</div>
-                        <div style={{ fontSize: 12, color: "rgba(255,255,255,0.70)", marginTop: 3 }}>
-                          {items[k].description}
-                        </div>
+                  <div key={k} className="rounded-2xl border border-slate-900/10 bg-white p-4">
+                    <div className="flex flex-wrap justify-between gap-3">
+                      <div className="min-w-0">
+                        <div className="font-extrabold text-slate-900">{label}</div>
+                        <div className="mt-1 text-xs text-slate-600">{desc}</div>
                       </div>
-                      <Chip>{row.has ? `✅ +${row.points}` : "❌ +0"}</Chip>
+                      <span
+                        className={
+                          row.has
+                            ? "rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700"
+                            : "rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-bold text-rose-700"
+                        }
+                      >
+                        {row.has ? `✅ +${row.points}` : "❌ +0"}
+                      </span>
                     </div>
 
                     {row.has && row.evidence ? (
-                      <div style={{ marginTop: 10, fontSize: 13 }}>
+                      <div className="mt-3 text-sm">
                         <a
                           href={row.evidence.url}
                           target="_blank"
                           rel="noreferrer"
-                          style={{ color: "white", textDecoration: "underline", textUnderlineOffset: 4 }}
+                          className="font-semibold text-slate-900 underline underline-offset-4"
                         >
                           Todiste ({safeHost(row.evidence.url)})
                         </a>
-                        <div style={{ marginTop: 4, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
-                          Julkaistu: <b style={{ color: "white" }}>{row.evidence.disclosedOn}</b>
+                        <div className="mt-1 text-xs text-slate-600">
+                          Julkaistu: <b className="text-slate-900">{row.evidence.disclosedOn}</b>
                         </div>
-                        {row.evidence.note && (
-                          <div style={{ marginTop: 4, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>{row.evidence.note}</div>
-                        )}
+                        {row.evidence.note ? <div className="mt-1 text-xs text-slate-600">{row.evidence.note}</div> : null}
                       </div>
                     ) : (
-                      <div style={{ marginTop: 10, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
-                        Ei qualifying-julkaisua ennen vaalipäivää.
-                      </div>
+                      <div className="mt-3 text-xs text-slate-600">Ei qualifying-julkaisua ennen vaalipäivää.</div>
                     )}
                   </div>
                 );
               })}
             </div>
           </>
-        )}
+        ) : null}
       </Modal>
 
       {/* How it works modal */}
       <Modal open={howOpen} onClose={() => setHowOpen(false)} title="Miten ehdokas.site toimii?">
-        <div style={{ display: "grid", gap: 12, color: "rgba(255,255,255,0.85)", fontSize: 13 }}>
-          <div style={{ borderRadius: 16, border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.04)", padding: 14 }}>
-            <b style={{ color: "white" }}>1) Julkinen vaali-indeksi</b>
-            <div style={{ marginTop: 6, color: "rgba(255,255,255,0.75)" }}>
+        <div className="grid gap-3 text-sm text-slate-700">
+          <div className="rounded-2xl border border-slate-900/10 bg-white p-4">
+            <b className="text-slate-900">1) Julkinen vaali-indeksi</b>
+            <div className="mt-2">
               Sivusto lukee tiedoston <code>/elections/index.json</code>, joka listaa tulevat vaalit ja niiden feed-URL:t.
             </div>
           </div>
 
-          <div style={{ borderRadius: 16, border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.04)", padding: 14 }}>
-            <b style={{ color: "white" }}>2) Per-vaali feed.json</b>
-            <div style={{ marginTop: 6, color: "rgba(255,255,255,0.75)" }}>
-              Jokaisella vaalilla on oma <code>feed.json</code>, jossa on ehdokkaat ja todiste-linkit (URL + disclosedOn). Pisteet lasketaan selaimessa.
+          <div className="rounded-2xl border border-slate-900/10 bg-white p-4">
+            <b className="text-slate-900">2) Per-vaali feed.json</b>
+            <div className="mt-2">
+              Jokaisella vaalilla on oma <code>feed.json</code>, jossa on ehdokkaat ja todiste-linkit (URL + disclosedOn).
+              Pisteet lasketaan selaimessa.
             </div>
           </div>
 
-          <div style={{ borderRadius: 16, border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.04)", padding: 14 }}>
-            <b style={{ color: "white" }}>3) Cutoff = vaalipäivä</b>
-            <div style={{ marginTop: 6, color: "rgba(255,255,255,0.75)" }}>
+          <div className="rounded-2xl border border-slate-900/10 bg-white p-4">
+            <b className="text-slate-900">3) Cutoff = vaalipäivä</b>
+            <div className="mt-2">
               Dokumentti lasketaan mukaan vain, jos sen <code>disclosedOn</code> on <b>vaalipäivänä tai ennen</b>.
             </div>
           </div>
 
-          <div style={{ borderRadius: 16, border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.04)", padding: 14 }}>
-            <b style={{ color: "white" }}>Ei tallennusta</b>
-            <div style={{ marginTop: 6, color: "rgba(255,255,255,0.75)" }}>
-              Ehdokas.site ei tallenna materiaalia. Se näyttää vain julkiset linkit ja laskee pisteet muistissa. Huom: linkin kohdesivusto voi lokittaa käynnin.
+          <div className="rounded-2xl border border-slate-900/10 bg-white p-4">
+            <b className="text-slate-900">Ei tallennusta</b>
+            <div className="mt-2">
+              Ehdokas.site ei tallenna materiaalia. Se näyttää vain julkiset linkit ja laskee pisteet muistissa.
+              Huom: linkin kohdesivusto voi lokittaa käynnin.
             </div>
           </div>
         </div>
@@ -1059,4 +808,3 @@ export default function App() {
     </div>
   );
 }
-
