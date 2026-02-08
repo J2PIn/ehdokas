@@ -1,0 +1,140 @@
+:root{
+  --bg0:#070708;
+  --bg1:#0b0b0d;
+  --card:rgba(255,255,255,.05);
+  --stroke:rgba(255,255,255,.10);
+  --muted:rgba(255,255,255,.70);
+  --muted2:rgba(255,255,255,.78);
+  --shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  color:white;
+  background:
+    radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,.10), transparent 60%),
+    radial-gradient(1000px 500px at 90% 20%, rgba(255,255,255,.08), transparent 55%),
+    linear-gradient(180deg, var(--bg0), var(--bg1) 60%, var(--bg0));
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.s-wrap{ max-width:1100px; margin:0 auto; padding:16px 12px 40px; }
+@media (min-width: 900px){ .s-wrap{ padding:22px 16px 48px; } }
+
+.s-top{
+  position:sticky; top:0; z-index:10;
+  backdrop-filter: blur(10px);
+  background: rgba(8,8,10,.72);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.s-topin{ max-width:1100px; margin:0 auto; padding:12px 12px; display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+@media (min-width: 900px){ .s-topin{ padding:14px 16px; flex-wrap:nowrap; } }
+
+.s-brand{ display:flex; gap:12px; align-items:center; min-width:0; }
+.s-logo{
+  width:38px; height:38px; border-radius:14px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.10);
+  display:grid; place-items:center;
+  font-weight:900;
+}
+.s-title{ font-weight:900; letter-spacing:.2px; }
+.s-sub{ font-size:12px; color:var(--muted); }
+
+.s-row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+
+.s-chip{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:6px 10px; border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.06);
+  font-size:12px; color:rgba(255,255,255,.85);
+  white-space:nowrap;
+}
+
+.s-btn{
+  cursor:pointer;
+  border-radius:14px;
+  padding:9px 12px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);
+  color:white;
+  font-size:13px;
+  font-weight:700;
+}
+.s-btn:disabled{ cursor:not-allowed; opacity:.6; }
+
+.s-hero{
+  border-radius:22px;
+  border:1px solid var(--stroke);
+  background:var(--card);
+  box-shadow:var(--shadow);
+  padding:16px;
+}
+@media (min-width: 900px){ .s-hero{ padding:18px; } }
+
+.s-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
+@media (min-width: 900px){ .s-grid{ grid-template-columns: 1.2fr .8fr; gap:18px; } }
+
+.s-h1{ margin:14px 0 6px; font-size:28px; line-height:1.12; }
+@media (min-width: 900px){ .s-h1{ font-size:34px; } }
+
+.s-p{ margin:0; color:var(--muted2); font-size:14px; }
+
+.s-card{
+  border-radius:22px;
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.04);
+  padding:16px;
+}
+@media (min-width: 900px){ .s-card{ padding:18px; } }
+
+.s-input, .s-select{
+  width:100%;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.25);
+  color:white;
+  padding:10px 12px;
+  font-size:13px;
+  outline:none;
+}
+
+.s-toprow{ display:flex; gap:12px; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; }
+.s-search{ width:100%; }
+@media (min-width: 900px){ .s-search{ width:280px; } }
+
+.s-list{ margin-top:12px; display:grid; gap:10px; }
+
+.s-rowbtn{
+  text-align:left;
+  cursor:pointer;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  padding:14px;
+  display:grid;
+  grid-template-columns:52px 1fr;
+  gap:12px;
+  align-items:start;
+}
+@media (min-width: 900px){
+  .s-rowbtn{ grid-template-columns:52px 1fr 180px; align-items:center; }
+}
+
+.s-right{ grid-column:1/-1; }
+@media (min-width: 900px){ .s-right{ grid-column:auto; } }
+
+.s-foot{ margin-top:26px; border-top:1px solid rgba(255,255,255,.08); padding-top:14px; color:var(--muted); font-size:12px; display:flex; gap:12px; flex-wrap:wrap; justify-content:space-between; }
+
+.s-ticker{
+  border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.03);
+  overflow:hidden;
+}
+@keyframes s-marquee{ 0%{ transform:translateX(0);} 100%{ transform:translateX(-50%);} }
+.s-marquee{ display:inline-flex; white-space:nowrap; will-change:transform; animation:s-marquee 36s linear infinite; padding:10px 0; }
+.s-marquee:hover{ animation-play-state:paused; }
