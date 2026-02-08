@@ -226,6 +226,40 @@ function TickerBar({ items }: { items: TickerMsg[] }) {
   const loop = [...items, ...items];
 
   return (
+    <div style={{ minHeight: "100vh", ... }}>
+    <style>{`
+      /* Responsive system */
+      .container { max-width: 1100px; margin: 0 auto; padding: 22px 16px 48px; }
+      .heroGrid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+      .topRow { display:flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+      .search { width: 100%; max-width: 520px; }
+
+      .candidateRow {
+        cursor: pointer;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.04);
+        padding: 14px;
+        display: grid;
+        grid-template-columns: 52px 1fr;
+        gap: 12px;
+        align-items: start;
+        text-align: left;
+      }
+      .candidateRight { grid-column: 1 / -1; }
+
+      @media (min-width: 900px) {
+        .heroGrid { grid-template-columns: 1.2fr 0.8fr; }
+        .search { width: 280px; }
+        .candidateRow { grid-template-columns: 52px 1fr 180px; align-items: center; }
+        .candidateRight { grid-column: auto; }
+      }
+
+      @media (max-width: 520px) {
+        .container { padding: 14px 12px 36px; }
+        h1 { font-size: 26px !important; }
+      }
+    `}</style>
     <div
       style={{
         borderTop: "1px solid rgba(255,255,255,0.08)",
@@ -653,16 +687,10 @@ export default function App() {
       {/* Sortino-style ticker */}
       {shownTicker.length > 0 && <TickerBar items={shownTicker} />}
 
-      <main style={{ maxWidth: 1100, margin: "0 auto", padding: isNarrow ? "16px 12px 40px" : "22px 16px 48px"}}>
+      <main className="container">
         {/* hero */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: isNarrow ? "1fr" : "1.2fr 0.8fr",
-                gap: 18,
-                alignItems: "stretch",
-              }}
-            >
+            <div className="heroGrid">
+
 
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               <Chip>✅ vain julkiset linkit</Chip>
@@ -799,7 +827,8 @@ export default function App() {
 
         {/* leaderboard */}
         <div style={{ marginTop: 18 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+          <input className="search" ... />
+          <div className="topRow">
             <div>
               <div style={{ fontSize: 12, color: "rgba(255,255,255,0.70)" }}>Ranking</div>
               <div style={{ fontSize: 20, fontWeight: 800 }}>{feed?.electionName ? feed.electionName : "Seuraavat vaalit"}</div>
@@ -837,21 +866,12 @@ export default function App() {
                 <button
                   key={s.candidate.id}
                   onClick={() => setSelectedCandidateId(s.candidate.id)}
-                  style={{
-                    textAlign: "left",
-                    cursor: "pointer",
-                    borderRadius: 18,
-                    border: "1px solid rgba(255,255,255,0.10)",
-                    background: "rgba(255,255,255,0.04)",
-                    padding: 14,
-                    display: "grid",
-                    gridTemplateColumns: isNarrow ? "52px 1fr" : "52px 1fr 180px",
-                    gridTemplateRows: isNarrow ? "auto auto" : undefined,
-                    gap: 12,
-                    alignItems: "center",
-                    alignItems: "center",
-                  }}
-                >
+                  <button
+                    key={s.candidate.id}
+                    onClick={() => setSelectedCandidateId(s.candidate.id)}
+                    className="candidateRow"
+                  >
+
                   <div
                     style={{
                       width: 44,
