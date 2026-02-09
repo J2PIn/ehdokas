@@ -2,43 +2,97 @@ import fs from "node:fs";
 import path from "node:path";
 
 function parseCSV(text) {
-  const lines = text.replace(/\r\n/g, "\n").split("\n").filter(Boolean);
-  if (lines.length < 2) return [];
-  const headers = lines[0].split(",").map((h) => h.trim());
+  // Supports quoted fields + commas inside quotes
   const rows = [];
+  let row = [];
+  let cur = "";
+  let inQuotes = false;
 
-  for (let i = 1; i < lines.length; i++) {
-    const cols = lines[i].split(","); // simple CSV (no quoted commas)
-    const obj = {};
-    headers.forEach((h, idx) => (obj[h] = (cols[idx] ?? "").trim()));
-    rows.push(obj);
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    const next = text[i + 1];
+
+    if (ch === '"' && inQuotes && next === '"') {
+      cur += '"';
+      i++;
+      continue;
+    }
+    if (ch === '"') {
+      inQuotes = !inQuotes;
+      continue;
+    }
+    if (ch === "," && !inQuotes) {
+      row.push(cur);
+      cur = "";
+      continue;
+    }
+    if ((ch === "\n" || ch === "\r") && !inQuotes) {
+      if (ch === "\r" && next === "\n") i++;
+      row.push(cur);
+      cur = "";
+      if (row.some((x) => x.trim().length)) rows.push(row);
+      row = [];
+      continue;
+    }
+    cur += ch;
   }
-  return rows;
+  row.push(cur);
+  if (row.some((x) => x.trim().length)) rows.push(row);
+
+  if (rows.length < 2) return [];
+
+  const headers = rows[0].map((h) => h.trim());
+  return rows.slice(1).map((r) => {
+    const obj = {};
+    headers.forEach((h, idx) => (obj[h] = (r[idx] ?? "").trim()));
+    return obj;
+  });
 }
 
-function nonEmpty(x) {
-  return typeof x === "string" && x.trim().length > 0;
+function nonEmpty(s) {
+  return typeof s === "string" && s.trim().length > 0;
 }
 
-const csvPath = process.argv[2] || "public/elections/fi-next/candidates.csv";
-const outPath = process.argv[3] || "public/elections/fi-next/feed.json";
+function uniqBy(arr, keyFn) {
+  const seen = new Set();
+  const out = [];
+  for (const x of arr) {
+    const k = keyFn(x);
+    if (!k || seen.has(k)) continue;
+    seen.add(k);
+    out.push(x);
+  }
+  return out;
+}
 
-// ⬇️ set these once per election
+const CSV_PATH = process.argv[2] || "public/elections/fi-next/candidates.csv";
+const OUT_PATH = process.argv[3] || "public/elections/fi-next/feed.json";
+
+// Set these per election (or pass via env)
 const electionDay = process.env.ELECTION_DAY || "2026-12-31";
 const electionName = process.env.ELECTION_NAME || "Seuraavat vaalit (beta)";
-const jurisdiction = process.env.JURISDICTION || "Suomi";
+const jurisdiction = process.env.JURISDICTION || "Finland";
 
-const csv = fs.readFileSync(csvPath, "utf8");
-const rows = parseCSV(csv);
+const csvText = fs.readFileSync(CSV_PATH, "utf8");
+const rows = parseCSV(csvText);
 
-const candidates = rows.map((r) => ({
-  id: r.id,
-  name: r.name,
-  party: r.party || undefined,
-  photoUrl: nonEmpty(r.photoUrl) ? r.photoUrl : undefined,
-  website: nonEmpty(r.website) ? r.website : undefined,
-  disclosures: {}, // important: exists even if empty (search/ranking still includes them)
-}));
+// Expected columns: id,name,party,photoUrl(optional),website(optional)
+const candidatesRaw = rows.map((r) => {
+  const id = r.id;
+  const name = r.name;
+  if (!nonEmpty(id) || !nonEmpty(name)) return null;
+
+  return {
+    id: id.trim(),
+    name: name.trim(),
+    party: nonEmpty(r.party) ? r.party.trim() : undefined,
+    photoUrl: nonEmpty(r.photoUrl) ? r.photoUrl.trim() : undefined,
+    website: nonEmpty(r.website) ? r.website.trim() : undefined,
+    disclosures: {}, // important: exists even if empty
+  };
+}).filter(Boolean);
+
+const candidates = uniqBy(candidatesRaw, (c) => c.id);
 
 const feed = {
   schemaVersion: 1,
@@ -49,7 +103,8 @@ const feed = {
   candidates,
 };
 
-fs.mkdirSync(path.dirname(outPath), { recursive: true });
-fs.writeFileSync(outPath, JSON.stringify(feed, null, 2) + "\n", "utf8");
+fs.mkdirSync(path.dirname(OUT_PATH), { recursive: true });
+fs.writeFileSync(OUT_PATH, JSON.stringify(feed, null, 2) + "\n", "utf8");
 
-console.log(`Wrote ${outPath} with ${candidates.length} candidates`);
+console.log(`✅ Wrote ${OUT_PATH}`);
+console.log(`Candidates: ${candidates.length} (from ${candidatesRaw.length})`);
