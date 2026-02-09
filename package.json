@@ -20,4 +20,11 @@
     "typescript": "^5.7.3",
     "vite": "^6.0.11"
   }
+  "scripts": {
+  "dev": "vite",
+  "gen:feed": "node scripts/gen-feed.mjs",
+  "build": "npm run gen:feed && vite build",
+  "preview": "vite preview"
+}
+
 }
