@@ -5,26 +5,21 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "gen:feed": "node scripts/gen-feed.mjs",
+    "build": "npm run gen:feed && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "lucide-react": "^0.468.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "lucide-react": "^0.468.0"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
+    "csv-parse": "^5.6.0",
     "typescript": "^5.7.3",
     "vite": "^6.0.11"
   }
-  "scripts": {
-  "dev": "vite",
-  "gen:feed": "node scripts/gen-feed.mjs",
-  "build": "npm run gen:feed && vite build",
-  "preview": "vite preview"
-}
-
 }
