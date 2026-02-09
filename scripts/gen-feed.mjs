@@ -45,7 +45,7 @@ const candidates = records
     website: (r.website ?? "").trim() || undefined,
     disclosures: {}, // default
   }))
-  .filter((c) => c.id && c.name && c.party);
+ 
 
 if (!candidates.length) {
   // HARD FAIL: never write a fallback
