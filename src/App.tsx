@@ -52,6 +52,70 @@ type ElectionIndex = {
   }>;
 };
 
+const IconMail = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+    <path d="M4 4h16v16H4z" />
+    <path d="M22 6l-10 7L2 6" />
+  </svg>
+);
+
+const IconX = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M18.9 2H22l-6.8 7.8L23 22h-6.5l-5.1-6.6L5.6 22H2.5l7.4-8.5L1 2h6.6l4.6 6L18.9 2z" />
+  </svg>
+);
+
+const IconIG = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+    <rect x="3" y="3" width="18" height="18" rx="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <path d="M17.5 6.5h.01" />
+  </svg>
+);
+
+const IconLI = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0.5 8.5H4.5V23H0.5zM8 8.5h3.8v2h.1c.5-1 1.8-2.2 3.8-2.2 4.1 0 4.9 2.7 4.9 6.1V23h-4v-7.2c0-1.7 0-3.9-2.4-3.9s-2.8 1.9-2.8 3.8V23H8z" />
+  </svg>
+);
+
+function SocialLinks({ className = "" }: { className?: string }) {
+  const iconCls = "h-5 w-5";
+  const aCls =
+    "inline-flex items-center gap-2 rounded-full border border-slate-900/10 bg-white/70 px-3 py-1.5 text-sm font-semibold text-slate-800 hover:bg-white";
+
+  // TODO: replace these with your real links
+  const email = "hello@ehdokas.site";
+  const x = "https://x.com/ehdokassite";
+  const ig = "https://instagram.com/ehdokassite";
+  const li = "https://linkedin.com/company/ehdokassite";
+
+  return (
+    <div className={`flex flex-wrap gap-2 ${className}`}>
+      <a className={aCls} href={`mailto:${email}`}>
+        <IconMail className={iconCls} />
+        <span className="hidden sm:inline">{email}</span>
+      </a>
+
+      <a className={aCls} href={x} target="_blank" rel="noreferrer">
+        <IconX className={iconCls} />
+        <span className="hidden sm:inline">X</span>
+      </a>
+
+      <a className={aCls} href={ig} target="_blank" rel="noreferrer">
+        <IconIG className={iconCls} />
+        <span className="hidden sm:inline">Instagram</span>
+      </a>
+
+      <a className={aCls} href={li} target="_blank" rel="noreferrer">
+        <IconLI className={iconCls} />
+        <span className="hidden sm:inline">LinkedIn</span>
+      </a>
+    </div>
+  );
+}
+
+
 // Default disclosure framework (Finland-first)
 const DEFAULT_ITEMS: Record<DisclosureKey, { label: string; weight: number; description: string }> = {
   verovelkatodistus: {
@@ -500,6 +564,8 @@ export default function App() {
               ) : null}
             </span>
 
+            <SocialLinks className="justify-end" />
+
             <button
               onClick={() => setHowOpen(true)}
               className="rounded-xl px-3 py-2 text-sm font-semibold border border-slate-900/10 bg-white hover:bg-slate-50"
@@ -716,7 +782,9 @@ export default function App() {
             <div>
               <b className="text-slate-900">Storage-free:</b> pisteytys tapahtuu selaimessa. Linkit vievät ulkoisiin lähteisiin.
             </div>
+            <SocialLinks className="mt-4" />
             <div>Vihje ehdokkaille: julkaise dokumentit (mieluiten redaktioituna) ja lisää pysyvä linkki.</div>
+            <div>© {new Date().getFullYear()} Ehdokas.site. Kaikki oikeudet pidätetään.</div>
           </div>
         </div>
       </main>
