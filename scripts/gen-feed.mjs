@@ -63,7 +63,7 @@ const feed = {
   schemaVersion: 1,
   jurisdiction: "Finland",
   electionName: "Seuraavat vaalit (beta)",
-  electionDay: "2026-12-31",
+  electionDay: "2027-4-18",
   lastUpdated: new Date().toISOString(),
   candidates,
 };
