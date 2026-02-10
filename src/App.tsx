@@ -629,7 +629,7 @@ export default function App() {
             />
           </div>
 
-          <div className="mt-4 grid gap-3">
+          <div className="relative z-0 mt-4 grid gap-3">
             {!computed ? (
               <div className="text-sm text-slate-600">Lataa vaali nähdäksesi rankingin.</div>
             ) : filtered.length === 0 ? (
@@ -638,9 +638,11 @@ export default function App() {
               filtered.map((s, idx) => (
                 <button
                   key={s.candidate.id}
+                  type="button"
                   onClick={() => setSelectedCandidateId(s.candidate.id)}
-                  className="rounded-3xl border border-slate-900/10 bg-white/70 backdrop-blur px-4 py-4 text-left hover:bg-white"
+                  className="relative z-10 rounded-3xl border border-slate-900/10 bg-white/70 backdrop-blur px-4 py-4 text-left hover:bg-white [&_*]:pointer-events-none"
                 >
+
                   <div className="grid grid-cols-[52px_1fr] md:grid-cols-[52px_1fr_200px] gap-3 items-start md:items-center">
                     <div className="h-12 w-12 rounded-2xl bg-slate-900/5 border border-slate-900/10 overflow-hidden grid place-items-center font-black text-slate-900">
                       {s.candidate.photoUrl ? (
