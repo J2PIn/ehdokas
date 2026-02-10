@@ -85,10 +85,10 @@ function SocialLinks({ className = "" }: { className?: string }) {
     "inline-flex items-center gap-2 rounded-full border border-slate-900/10 bg-white/70 px-3 py-1.5 text-sm font-semibold text-slate-800 hover:bg-white";
 
   // TODO: replace these with your real links
-  const email = "hello@ehdokas.site";
+  const email = "info@ehdokas.site";
   const x = "https://x.com/ehdokassite";
   const ig = "https://instagram.com/ehdokassite";
-  const li = "https://linkedin.com/company/ehdokassite";
+  const li = "https://linkedin.com/company/ehdokas";
 
   return (
     <div className={`flex flex-wrap gap-2 ${className}`}>
