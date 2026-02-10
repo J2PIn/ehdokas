@@ -157,6 +157,16 @@ function computeScores(feed: Feed, items: typeof DEFAULT_ITEMS) {
   scored.sort((a, b) => b.points - a.points);
   return { scored, maxPoints };
 }
+function slugifyId(input: string) {
+  return input
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^\p{L}\p{N}-]+/gu, "") // keep letters/numbers (unicode) and '-'
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 
 // ---------- ticker ----------
 type TickerMsg = { kind: "ok" | "missing"; text: string; href?: string; t?: number };
@@ -384,7 +394,26 @@ export default function App() {
       if (!data || data.schemaVersion !== 1) throw new Error("Invalid feed schemaVersion");
       if (!data.electionDay) throw new Error("feed.json missing electionDay");
       if (!Array.isArray(data.candidates)) throw new Error("feed.json missing candidates[]");
-      setFeed(data);
+      // Normalize candidate ids: ensure every candidate has a stable non-empty unique id
+      const seen = new Map<string, number>();
+      const candidates = data.candidates.map((c, i) => {
+        const raw = (c.id ?? "").trim();
+        const base =
+          raw ||
+          slugifyId(`${c.name ?? "candidate"}-${c.party ?? ""}`) ||
+          `candidate`;
+      
+        const n = (seen.get(base) ?? 0) + 1;
+        seen.set(base, n);
+      
+        // If duplicates, suffix with -2, -3, ...
+        const id = n === 1 ? base : `${base}-${n}`;
+      
+        return { ...c, id };
+      });
+      
+      setFeed({ ...data, candidates });
+
       setLastRefresh(new Date().toISOString());
     } catch (e: any) {
       setErr(e?.message ?? "Failed to load feed");
@@ -437,7 +466,10 @@ export default function App() {
 
   const selected = useMemo(() => {
     if (!computed || !selectedCandidateId) return null;
-    return computed.scored.find((s) => s.candidate.id === selectedCandidateId) ?? null;
+    return (
+      computed.scored.find((s) => String(s.candidate.id).trim() === String(selectedCandidateId).trim()) ?? null
+    );
+
   }, [computed, selectedCandidateId]);
 
   const dLeft = feed?.electionDay ? daysUntil(feed.electionDay) : null;
