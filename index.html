@@ -102,6 +102,56 @@
     </div>
   </div>
 
+  <script>
+  (function () {
+    const KEY = "ehdokas_cookie_notice";
+    const notice = document.getElementById("cookieNotice");
+    const acceptBtn = document.getElementById("cookieAccept");
+    const learnMoreBtn = document.getElementById("cookieLearnMore");
+  
+    if (!notice || !acceptBtn) return;
+  
+    function show() {
+      notice.classList.remove("hidden");
+    }
+  
+    function hide() {
+      notice.classList.add("hidden");
+    }
+  
+    // Show only if not previously dismissed
+    try {
+      const seen = localStorage.getItem(KEY);
+      if (!seen) show();
+    } catch {
+      // If storage is blocked, just show the notice every time (safe fallback)
+      show();
+    }
+  
+    acceptBtn.addEventListener("click", () => {
+      try {
+        localStorage.setItem(KEY, "1");
+      } catch {}
+      hide();
+    });
+  
+    // Optional "Learn more" action
+    if (learnMoreBtn) {
+      learnMoreBtn.addEventListener("click", () => {
+        // Option A: open a privacy page if you have one
+        // window.location.href = "/privacy";
+  
+        // Option B: simple inline alert (no extra page needed)
+        alert(
+          "Ehdokas.site does not use analytics or advertising cookies. " +
+          "We only store a local setting to remember that you closed this notice."
+        );
+      });
+    }
+  })();
+  </script>
+
+
   <body class="font-sans text-slate-900">
     <!-- Sortino “premium light background” -->
     <div class="fixed inset-0 -z-10">
