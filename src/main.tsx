@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import "./ehdokas.css";
 import Home from "./pages/Home";
 import Disclose from "./pages/Disclose";
+import Verify from "./pages/Verify";
+
 
 function route() {
   const p = window.location.pathname;
