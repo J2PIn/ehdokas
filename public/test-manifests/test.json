@@ -1,0 +1,18 @@
+{
+  "candidateId": "1",
+  "createdAt": "2026-02-11T17:35:27.124Z",
+  "docs": [
+    {
+      "label": "Dummy PDF",
+      "sha256": "8d09e24a0560aac340aad89e6bc3ecec4fef05bd73e9d4f3b6668de3f003a525",
+      "url": "http://localhost:5173/testdocs/test.txt"
+    }
+  ],
+  "domainProof": {
+    "method": "well-known",
+    "token": "f0682d13138f5905add0f8dcd527416e",
+    "url": "https://candidate.fi/.well-known/ehdokas.txt"
+  },
+  "issuer": "https://candidate.fi",
+  "schema": "ehdokas.disclosure.v1"
+}
