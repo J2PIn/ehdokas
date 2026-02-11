@@ -8,9 +8,9 @@ import Verify from "./pages/Verify";
 
 function route() {
   const p = window.location.pathname;
-  if (p === "/disclose") return "disclose";
-  if (p === "/verify") return "verify";
-  return "home";
+  if (r === "disclose") return <Disclose />;
+  if (r === "verify") return <Verify />;
+  return <Home />;
 }
 
 function App() {
