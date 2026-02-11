@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./ehdokas.css";
-import "./index.css";
 import Home from "./pages/Home";
 import Disclose from "./pages/Disclose";
 
