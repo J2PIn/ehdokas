@@ -5,8 +5,9 @@ import Home from "./pages/Home";
 import Disclose from "./pages/Disclose";
 
 function route() {
-  const h = window.location.hash || "#/";
-  if (h.startsWith("#/disclose")) return "disclose";
+  const p = window.location.pathname;
+  if (p === "/disclose") return "disclose";
+  if (p === "/verify") return "verify";
   return "home";
 }
 
@@ -14,9 +15,9 @@ function App() {
   const [r, setR] = React.useState(route());
 
   React.useEffect(() => {
-    const onHash = () => setR(route());
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
+    const onPop = () => setR(route());
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
   }, []);
 
   return r === "disclose" ? <Disclose /> : <Home />;
