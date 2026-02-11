@@ -5,16 +5,16 @@ import Home from "./pages/Home";
 import Disclose from "./pages/Disclose";
 import Verify from "./pages/Verify";
 
-
-function route() {
+function route(): "home" | "disclose" | "verify" {
   const p = window.location.pathname;
-  if (r === "disclose") return <Disclose />;
-  if (r === "verify") return <Verify />;
-  return <Home />;
+
+  if (p === "/disclose") return "disclose";
+  if (p === "/verify") return "verify";
+  return "home";
 }
 
 function App() {
-  const [r, setR] = React.useState(route());
+  const [r, setR] = React.useState<"home" | "disclose" | "verify">(route());
 
   React.useEffect(() => {
     const onPop = () => setR(route());
@@ -22,9 +22,10 @@ function App() {
     return () => window.removeEventListener("popstate", onPop);
   }, []);
 
-  return r === "disclose" ? <Disclose /> : <Home />;
+  if (r === "disclose") return <Disclose />;
+  if (r === "verify") return <Verify />;
+  return <Home />;
 }
-
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
