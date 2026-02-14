@@ -3,7 +3,7 @@
   "jurisdiction": "Finland",
   "electionName": "Seuraavat vaalit (beta)",
   "electionDay": "2027-4-18",
-  "lastUpdated": "2026-02-14T14:09:02.936Z",
+  "lastUpdated": "2026-02-14T14:11:49.729Z",
   "candidates": [
     {
       "id": "pauli-aalto-setala",
@@ -146,7 +146,7 @@
       "disclosures": {}
     },
     {
-      "id": "",
+      "id": "pauli-kiuru",
       "name": "Pauli Kiuru",
       "party": "Kokoomus",
       "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/06/PAULI_KIURU-58-349x233.jpg",
