@@ -13,7 +13,7 @@ function route(): "home" | "disclose" | "verify" {
   return "home";
 }
 
-function App() {
+function RouterApp() {
   const [r, setR] = React.useState<"home" | "disclose" | "verify">(route());
 
   React.useEffect(() => {
@@ -29,6 +29,6 @@ function App() {
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <RouterApp />
   </React.StrictMode>
 );
