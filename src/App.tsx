@@ -589,6 +589,13 @@ export default function SiteHome() {
             </span>
 
             <SocialLinks className="justify-end" />
+            <a
+              href="/disclose"
+              className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-slate-800"
+            >
+              📄 Ehdokas: lähetä dokumentit
+            </a>
+
 
             <button
               onClick={() => setHowOpen(true)}
