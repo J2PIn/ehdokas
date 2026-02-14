@@ -69,38 +69,7 @@
     </style>
   </head>
 
-  <!-- Cookie / privacy notice -->
-  <div id="cookieNotice"
-    class="fixed inset-x-0 bottom-0 z-50 hidden"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Evästeilmoitus">
-    <div class="mx-auto max-w-6xl px-4 pb-4">
-      <div class="rounded-2xl border border-slate-200 bg-white/95 backdrop-blur shadow-lg">
-        <div class="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
-          <div class="text-sm text-slate-700">
-            <p class="font-semibold text-slate-900">Cookie notice</p>
-            <p class="mt-1">
-              Ehdokas.site ei käytä analysointi- eikä mainostusevästeitä. Tallennamme ainoastaan tiedon siitä, että suljit tämän tiedoksiannon.
-            </p>
   
-            <!-- Optional: hide if you don't have a privacy page -->
-            <button id="cookieLearnMore"
-              class="mt-2 inline-flex items-center gap-1 text-sm font-medium text-slate-900 underline decoration-slate-300 underline-offset-4 hover:decoration-slate-500">
-              Learn more
-            </button>
-          </div>
-  
-          <div class="flex gap-2">
-            <button id="cookieAccept"
-              class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400">
-              OK
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <script>
   (function () {
@@ -159,6 +128,38 @@
       <div
         class="absolute -top-32 left-1/2 h-[28rem] w-[52rem] -translate-x-1/2 rounded-full bg-cyan-200/40 blur-3xl"
       ></div>
+      <!-- Cookie / privacy notice -->
+      <div id="cookieNotice"
+        class="fixed inset-x-0 bottom-0 z-50 hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Evästeilmoitus">
+        <div class="mx-auto max-w-6xl px-4 pb-4">
+          <div class="rounded-2xl border border-slate-200 bg-white/95 backdrop-blur shadow-lg">
+            <div class="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div class="text-sm text-slate-700">
+                <p class="font-semibold text-slate-900">Cookie notice</p>
+                <p class="mt-1">
+                  Ehdokas.site ei käytä analysointi- eikä mainostusevästeitä. Tallennamme ainoastaan tiedon siitä, että suljit tämän tiedoksiannon.
+                </p>
+      
+                <!-- Optional: hide if you don't have a privacy page -->
+                <button id="cookieLearnMore"
+                  class="mt-2 inline-flex items-center gap-1 text-sm font-medium text-slate-900 underline decoration-slate-300 underline-offset-4 hover:decoration-slate-500">
+                  Learn more
+                </button>
+              </div>
+      
+              <div class="flex gap-2">
+                <button id="cookieAccept"
+                  class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400">
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         class="absolute top-40 left-1/4 h-[26rem] w-[40rem] rounded-full bg-indigo-200/35 blur-3xl"
       ></div>
