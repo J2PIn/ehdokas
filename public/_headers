@@ -1,3 +1,13 @@
+/
+  Cache-Control: no-store, must-revalidate
+
+/index.html
+  Cache-Control: no-store, must-revalidate
+
+/elections/*
+  Cache-Control: no-store, must-revalidate
+
+
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
