@@ -393,7 +393,7 @@ function DocStrip({
 }
 
 // ---------- App ----------
-export default function App() {
+export default function SiteHome() {
   const [index, setIndex] = useState<ElectionIndex | null>(null);
   const [feed, setFeed] = useState<Feed | null>(null);
   const [selectedElectionId, setSelectedElectionId] = useState<string | null>(null);
