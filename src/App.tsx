@@ -231,6 +231,30 @@ function slugifyId(input: string) {
     .replace(/^-|-$/g, "");
 }
 
+{/* Candidate CTA */}
+<section className="mx-auto mt-8 max-w-5xl px-4">
+  <div className="relative overflow-hidden rounded-3xl bg-slate-900 px-8 py-10 text-center shadow-soft">
+    <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-cyan-400/20 blur-3xl"></div>
+    <div className="absolute -bottom-16 -left-16 h-40 w-40 rounded-full bg-indigo-400/20 blur-3xl"></div>
+
+    <h2 className="text-2xl font-extrabold text-white md:text-3xl">
+      Ehdokas — lähetä avoimuusdokumenttisi tästä
+    </h2>
+
+    <p className="mt-3 text-slate-300">
+      Lisää julkiset dokumenttilinkkisi ja näytä äänestäjille avoimuutesi ennen vaalipäivää.
+    </p>
+
+    <div className="mt-6">
+      <a
+        href="/disclose"
+        className="inline-flex items-center justify-center rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-slate-900 shadow-lg transition hover:scale-105 hover:bg-slate-100"
+      >
+        📄 Lähetä dokumentit nyt
+      </a>
+    </div>
+  </div>
+</section>
 
 // ---------- ticker ----------
 type TickerMsg = { kind: "ok" | "missing"; text: string; href?: string; t?: number };
