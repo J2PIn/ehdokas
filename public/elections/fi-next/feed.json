@@ -3,8 +3,1388 @@
   "jurisdiction": "Finland",
   "electionName": "Seuraavat vaalit (beta)",
   "electionDay": "2027-4-18",
-  "lastUpdated": "2026-02-08T00:00:00.000Z",
+  "lastUpdated": "2026-02-14T11:53:15.783Z",
   "candidates": [
-    { "id": "test-1", "name": "Test Candidate", "party": "TEST", "disclosures": {} }
+    {
+      "id": "",
+      "name": "Heikki Autto",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2019/04/signal-2024-03-20-215404_004-349x524.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Maaret Castrén",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2024/08/Maaret-Castren-057-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Markku Eestilä",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/05/Eestila-Markku-34-349x210.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Noora Fagerström",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/NOORA-FAGERSTROM-38-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sanni Grahn-Laasonen",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/05/SANNI-GRAHN-LAASONEN-20-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Janne Heikkinen",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2019/04/Heikkinen-Janne-51-349x234.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Timo Heinonen",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/05/Nettikokoinen_TIMO_HEINONEN_260618_8.jpg-473x315.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Antti Häkkänen",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/05/Nettikokoinen_ANTTI_HAKKANEN_241017_179-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Juha Hänninen",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/JUHA-HANNINEN-28-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Anna-Kaisa Ikonen",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2019/04/ANNA-KAISA-IKONEN-8-1-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Janne Jukkola",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/JANNE-JUKKOLA-37-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Aleksi Jäntti",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/ALEKSI-JANTTI-45-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Atte Kaleva",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2021/11/KalevaAtte48-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Pia Kauma",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/06/Kauma-Pia-27-1-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Ville Kaunisto",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2019/04/VILLE_KAUNISTO-56-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mari Kaunistola",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/MARI-KAUNISTOLA-12-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Pihla Keto-Huovinen",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2019/04/Nettikokoinen_PIHLA_KETO_HUOVINEN_020719_21.jpg-473x315.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Marko Kilpi",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2019/04/Nettikokoinen_MARKO_KILPI_270619_34.jpg-473x315.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Teemu Kinnari",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/TEEMU-KINNARI-89-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Pauli Kiuru",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/06/PAULI_KIURU-58-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jukka Kopra",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/05/JUKKA-KOPRA-2025-RYHMAHUONE-07-e1770043996489-349x261.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Terhi Koulumies",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2019/04/Nettikokoinen_TERHI_KOULUMIES_270619_14.jpg-473x315.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Milla Lahdenperä",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/MILLA-LAHDENPERA-80-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mia Laiho",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/06/Nettikokoinen_MIA_LAIHO_21-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jarno Limnell",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/JARNO-LIMNELL-22-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jarmo Lindberg",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/JARMO-LINDBERG-69-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Matias Marttinen",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2019/04/Matias-Marttinen-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sari Multala",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/06/SARI-MULTALA-14-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Petteri Orpo",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/05/Nettikokoinen_PETTERI_ORPO_210817_191.jpg-473x315.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Martin Paasi",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2024/08/Martin-Paasi-4-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Karoliina Partanen",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/KAROLIINA-PARTANEN-11-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Susanne Päivärinta",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/Susanne-Paivarinta-006-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Paula Risikko",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/06/Nettikokoinen_PAULA_RISIKKO_9.jpg-472x315.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Tere Sammallahti",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/TERE-SAMMALLAHTI-21-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sari Sarkomaa",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/06/Nettikokoinen_SARKOMAA_SARI_160818_144.jpg-473x315.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Arto Satonen",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/06/ARTO-SATONEN-23-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Saara-Sofia Sirén",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/06/SAARA-SOFIA-SIREN-13-1-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mari-Leena Talvitie",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/06/MARI-LEENA-TALVITIE-18-1-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Ville Valkonen",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2021/03/VilleValkonen-virallinen-lowres_dda69ee6-b680-420c-a6eb-cf89d7623f37-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Oskari Valtola",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/OSKARI-VALTOLA-18-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Elina Valtonen",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2022/02/ValtonenElina74-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Heikki Vestman",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2019/04/HEIKKI-VESTMAN-12-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sofia Vikman",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/06/2025_Vikman-Sofia-14-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Henrik Vuornos",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2019/08/Vuornos_Henrik-18-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Ville Väyrynen",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2023/04/VILLE-VAYRYNEN-61-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sinuhe Wallinheimo",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/06/Wallinheimo-Sinuhe-56-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Ben Zyskowicz",
+      "party": "Kokoomus",
+      "photoUrl": "https://www.kokoomus.fi/wp-content/uploads/2018/05/BEN-ZYSKOWICZ-4-349x233.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Marko Asell",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/marko-asell.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Kim Berg",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/kim-berg.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Eeva-Johanna Eloranta",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/eeva-johanna-eloranta.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Seppo Eskelinen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/seppo-eskelinen-640x640.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Tarja Filatov",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/tarja-filatov.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Elisa Gebhard",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/09/gebhard_elisa-e1695213245766-640x640.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Tuula Haatainen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/09/tuula-haatainen-1-640x640.png",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Lotta Hamari",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/10/hamari-lotta-e1697796507894-640x640.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Timo Harakka",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/timo-harakka.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Eveliina Heinäluoma",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/eveliina_heinaluoma-e1759399877993-640x640.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Pia Hiltunen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/04/hiltunen_pia-640x640.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Riitta Kaarisalo",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/riitta-makinen.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mika Kari",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/mika-kari.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Anette Karlsson",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2025/09/anette_karlsson-1-640x800.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Kimmo Kiljunen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/kimmo-kiljunen.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Krista Kiuru",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/krista-kiuru-640x640.png",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jani Kokko",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/04/kokko_jani-640x640.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Johannes Koskinen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/johannes-koskinen.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Miapetra Kumpula-Natri",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/miapetra-kumpula-natri-1.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Johan Kvarnström",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/johan_kvarnstrom-e1758613917202-640x640.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Suna Kymäläinen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/suna-kymalainen.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Hanna Laine-Nousimaa",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2025/06/laine_hanna_01-e1750147861540-640x640.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Antti Lindtman",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/antti-lindtman-640x640.png",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Aki Lindén",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/linden_aki-e1761210063395-640x640.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Lauri Lyly",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/04/lyly_lauri-640x640.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Niina Malm",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/malm-niina-e1716184197934-640x640.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Helena Marttila",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/04/marttila_helena-640x640.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Ville Merinen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/04/ville-merinen-sdp-2-e1711823989970-640x609.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Anna-Kristiina Mikkonen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/04/mikkonen_anna-kristiina-640x640.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Matias Mäkynen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/matias-makynen-640x640.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Saku Nikkanen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/04/nikkanen_saku-640x640.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Johanna Ojala-Niemelä",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/johanna-ojala-niemela.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Pinja Perholehto",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/04/pinja-perholehto-sdp-e1711823857992-640x717.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Piritta Rantanen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/piritta-rantanen.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Nasima Razmyar",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/04/razmyar_nasima-640x640.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Joona Räsänen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/04/rasanen_joona-640x640.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Ville Skinnari",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/ville-skinnari-640x640.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Timo Suhonen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/04/suhonen_timo-640x640.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Tytti Tuppurainen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/tytti-tuppurainen_51746361223_o-e1760526308682-640x496.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Juha Viitala",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2023/04/viitala_juha-640x640.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Pia Viitanen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/pia-viitanen.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Tuula Väätäinen",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/tuula-v__t_inen_2025-640x768.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Paula Werning",
+      "party": "SDP",
+      "photoUrl": "https://www.sdp.fi/app/uploads/sites/2/2022/11/paula-werning.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Petri Honkonen",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2023/04/Honkonen-Petri.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Hannu Hoskonen",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2020/05/Hoskonen-Hannu-800x533px.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Hanna Räsänen",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2023/04/Huttunen-Hanna.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Antti Kaikkonen",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2023/04/Kaikkonen-Antti.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Eeva Kalli",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2023/04/Kalli-Eeva-2.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Vesa Kallio",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2023/04/Kallio-Vesa-2.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Anne Kalmari",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2020/05/Kalmari-Anne-800x533px.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Hilkka Kemppi",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2024/05/Kemppi-Hilkka-800x800px2.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Tuomas Kettunen",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2024/06/Kettunen-Tuomas-800x800px.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mauri Kontu",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2025/09/305c2db5-8ba0-41d1-8df9-42a5e4a8944d-1000x1000.jpeg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Hanna Kosonen",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2020/06/kosonen-portrait-1000x1000.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Antti Kurvinen",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2025/11/Kurvinen-Anti-2025-1.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mika Lintilä",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2020/06/lintila-portrait-1000x1000.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Markus Lohi",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2024/05/Lohi-Markus-800x800px2-1.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Hanna-Leena Mattila",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2020/09/Mattila-Hanna-Leena-800x533px.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Timo Mehtälä",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2023/04/Mehtala-Timo.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Olga Oinas-Panuma",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2023/04/Oinas-Panuma-Olga.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jouni Ovaska",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2020/05/Ovaska-Jouni-800x533px.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mika Riipi",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2024/09/Riipi-Mika-800x800px.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mikko Savola",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2022/06/Savola-800x533px.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Markku Siponen",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2023/04/Siponen-Markku.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Eerikki Viljanen",
+      "party": "Keskusta",
+      "photoUrl": "https://keskusta.fi/wp-content/uploads/2023/04/Viljanen-eerikki.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Minja Koskela",
+      "party": "Vasemmistoliitto",
+      "photoUrl": "https://vasemmisto.fi/wp-content/uploads/2023/04/EDUSKUNNAN_VIRALLINEN_KUVA_2024_Minja-500x0-c-default.png",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Aino-Kaisa Pekonen",
+      "party": "Vasemmistoliitto",
+      "photoUrl": "https://vasemmisto.fi/wp-content/uploads/2023/04/EDUSKUNNAN_VIRALLINEN_KUVA_2024_AK-500x0-c-default.png",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Timo Furuholm",
+      "party": "Vasemmistoliitto",
+      "photoUrl": "https://vasemmisto.fi/wp-content/uploads/2023/04/EDUSKUNNAN_VIRALLINEN_KUVA_2024_Timo-500x0-c-default.png",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Laura Meriluoto",
+      "party": "Vasemmistoliitto",
+      "photoUrl": "https://vasemmisto.fi/wp-content/uploads/2023/04/EDUSKUNNAN_VIRALLINEN_KUVA_2024_Laura-500x0-c-default.png",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Veronika Honkasalo",
+      "party": "Vasemmistoliitto",
+      "photoUrl": "https://vasemmisto.fi/wp-content/uploads/2023/04/EDUSKUNNAN_VIRALLINEN_KUVAN_2024_Veronika-500x0-c-default.png",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jessi Jokelainen",
+      "party": "Vasemmistoliitto",
+      "photoUrl": "https://vasemmisto.fi/wp-content/uploads/2023/04/EDUSKUNNAN_VIRALLINEN_KUVA_2024_Jessi-500x0-c-default.png",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mai Kivelä",
+      "party": "Vasemmistoliitto",
+      "photoUrl": "https://vasemmisto.fi/wp-content/uploads/2023/04/EDUSKUNNAN_VIRALLINEN_KUVA_2024_Mai-500x0-c-default.png",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Anna Kontula",
+      "party": "Vasemmistoliitto",
+      "photoUrl": "https://vasemmisto.fi/wp-content/uploads/2023/04/EDUSKUNNAN_VIRALLINEN_KUVA_2024_Anna-500x0-c-default.png",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Pia Lohikoski",
+      "party": "Vasemmistoliitto",
+      "photoUrl": "https://vasemmisto.fi/wp-content/uploads/2023/04/EDUSKUNNAN_VIRALLINEN_KUVA_2024_Pia-500x0-c-default.png",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Hanna Sarkkinen",
+      "party": "Vasemmistoliitto",
+      "photoUrl": "https://vasemmisto.fi/wp-content/uploads/2023/04/EDUSKUNNAN_VIRALLINEN_KUVA_2024_Hanna-500x0-c-default.png",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Johanne Yrttiaho",
+      "party": "Vasemmistoliitto",
+      "photoUrl": "https://vasemmisto.fi/wp-content/uploads/2019/04/Johannes_Yrttiaho_EDUSKUNNAN_VIRALLINEN_2024-12_nelio-500x0-c-default.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mari Rantanen",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Rantanen-Mari-web-1388-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jussi Halla-aho",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/07/Halla-aho-Jussi-web-1109-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Wille Rydman",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/02/Rydman-Wille-web-1282-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Leena Meri",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2015/05/Meri-Leena-web-1349-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Ari Koponen",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Koponen-Ari-web-1391-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Riikka Purra",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Purra-Riikka-web-1392-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jorma Piisinen",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Piisinen-Jorma-web-1499-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Teemu Keskisarja",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Keskisarja-Teemu-web-1498-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Onni Rostila",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Rostila-Onni-web-1500-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Arja Juvonen",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2014/03/Juvonen-Arja-web-1129-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Ville Tavio",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2015/04/Tavio-Ville-web-1327-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Vilhelm Junnila",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Junnila-Vilhelm-web-1409-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mikko Lundén",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Lunden-Mikko-web-1410-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Ritva Kike Elomaa",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2014/03/Elomaa-Ritva-web-1096-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Laura Huhtasaari",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2015/04/Huhtasaari-Laura-web-1333-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jari Koskela",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Koskela-Jari-web-1413-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Petri Huru",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/07/Huru-Petri-web-1467-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jari Ronkainen",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2015/04/Ronkainen-Jari-web-1308-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Lulu Ranne",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Ranne-Lulu-web-1417-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Rami Lehtinen",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Lehtinen-Rami-web-1508-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mira Nieminen",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Nieminen-Mira-web-1509-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sami Savio",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2015/04/Savio-Sami-web-1314-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Veijo Niemi",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Niemi-Veijo-web-1418-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sakari Puisto",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Puisto-Sakari-web-1419-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Miko Bergbom",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Bergbom-Miko-web-1514-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Joakim Vigelius",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Vigelius-Joakim-web-1515-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jani Mäkelä",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2015/04/Makela-Jani-web-1301-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sheikki Laakso",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Laakso-Sheikki-web-1426-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jaana Strandman",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Strandman-Jaana-web-1516-1-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Juho Eerola",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2014/03/Eerola-Juho-web-1093-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sanna Antikainen",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Antikainen-Sanna-web-1434-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Minna Reijonen",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Reijonen-Minna-web-1435-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Juha Mäenpää",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Maenpaa-Juha-web-1437-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mauri Peltokangas",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Peltokangas-Mauri-web-1439-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Anne Rintamäki",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Rintamaki-Anne-web-1526-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Pia Sillanpää",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Sillanpaa-Pia-web-1527-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Tomi Immonen",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Immonen-Tomi-web-1531-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Kaisa Garedew",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Garedew-Kaisa-web-1530_versio-2-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jenna Simula",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Simula-Jenna-web-1450-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Antti Kangas",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Kangas-Antti-web-1535-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Merja Rasinkangas",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2024/08/Rasinkangas-Merja-web-911825-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Pekka Aittakumpu",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2024/10/Aittakumpu-Pekka-web-1452-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Ville Vähämäki",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2014/03/Vahamaki-Ville-web-1136-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Kaisa Juuso",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2019/05/Juuso-Kaisa-web-1455-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sara Seppänen",
+      "party": "Perussuomalaiset",
+      "photoUrl": "https://www.perussuomalaiset.fi/wp-content/uploads/2023/04/Seppanen-Sara-web-1538-100x140.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Anders Adlercreutz",
+      "party": "RKP",
+      "photoUrl": "https://sfp.fi/wp-content/uploads/2018/08/2-1-1500x1500.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Otto Andersson",
+      "party": "RKP",
+      "photoUrl": "https://sfp.fi/wp-content/uploads/2018/08/5-1-1500x1500.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sandra Bergqvist",
+      "party": "RKP",
+      "photoUrl": "https://sfp.fi/wp-content/uploads/2018/08/1-1-1500x1500.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Eva Biaudet",
+      "party": "RKP",
+      "photoUrl": "https://sfp.fi/wp-content/uploads/2018/08/9-1-1500x1500.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Christoffer Ingo",
+      "party": "RKP",
+      "photoUrl": "https://sfp.fi/wp-content/uploads/2018/08/8-1-1500x1500.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mats Löfström",
+      "party": "RKP",
+      "photoUrl": "https://sfp.fi/wp-content/uploads/2018/08/7-1-1500x1500.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Anders Norrback",
+      "party": "RKP",
+      "photoUrl": "https://sfp.fi/wp-content/uploads/2018/08/6-1-1500x1500.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mikko Ollikainen",
+      "party": "RKP",
+      "photoUrl": "https://sfp.fi/wp-content/uploads/2018/08/10-1-1500x1500.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Joakim Strand",
+      "party": "RKP",
+      "photoUrl": "https://sfp.fi/wp-content/uploads/2018/08/4-1-1500x1500.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Henrik Wickström",
+      "party": "RKP",
+      "photoUrl": "https://sfp.fi/wp-content/uploads/2018/08/11-1-1500x1500.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Alviina Alametsä",
+      "party": "Vihreät",
+      "photoUrl": "https://www.vihreat.fi/wp-content/uploads/2020/10/AlviinaAlametsa-300px.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Fatim Diarra",
+      "party": "Vihreät",
+      "photoUrl": "https://www.vihreat.fi/wp-content/uploads/2023/04/218-Fatim-Diarra-e1681297522848.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Tiina Elo",
+      "party": "Vihreät",
+      "photoUrl": "https://www.vihreat.fi/wp-content/uploads/2020/10/ELO_TIINA_VIHREÄT_UUSIMAA-1.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Bella Forsgrén",
+      "party": "Vihreät",
+      "photoUrl": "https://www.vihreat.fi/wp-content/uploads/2020/10/FORSGREN_BELLA_VIHREAT_KESKI-SUOMI-1.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Pekka Haavisto",
+      "party": "Vihreät",
+      "photoUrl": "https://www.vihreat.fi/wp-content/uploads/2020/10/Pekka-Haavisto-KP-1_tif.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Atte Harjanne",
+      "party": "Vihreät",
+      "photoUrl": "https://www.vihreat.fi/wp-content/uploads/2020/10/HARJANNE_ATTE_VIHREÄT_HELSINKI-1.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Hanna Holopainen",
+      "party": "Vihreät",
+      "photoUrl": "https://www.vihreat.fi/wp-content/uploads/2020/10/HOLOPAINEN_HANNA_VIHREÄT_KAAKKOIS-SUOMI.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Inka Hopsu",
+      "party": "Vihreät",
+      "photoUrl": "https://www.vihreat.fi/wp-content/uploads/2020/10/HOPSU_INKA_VIHREÄT_UUSIMAA.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Saara Hyrkkö",
+      "party": "Vihreät",
+      "photoUrl": "https://www.vihreat.fi/wp-content/uploads/2020/10/HYRKKÖ_SAARA_VIHREÄT_UUSIMAA.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Krista Mikkonen",
+      "party": "Vihreät",
+      "photoUrl": "https://www.vihreat.fi/wp-content/uploads/2020/10/KristaMikkonen-300px.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Jenni Pitko",
+      "party": "Vihreät",
+      "photoUrl": "https://www.vihreat.fi/wp-content/uploads/2020/10/PITKO_JENNI_VIHREÄT_OULUN-VAALIPIIRI.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Oras Tynkkynen",
+      "party": "Vihreät",
+      "photoUrl": "https://www.vihreat.fi/wp-content/uploads/2023/04/19-Oras-Tynkkynen.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sofia Virta",
+      "party": "Vihreät",
+      "photoUrl": "https://www.vihreat.fi/wp-content/uploads/2020/10/VIRTA_SOFIA_VIHREÄT_VARSINAIS_SUOMI.jpg",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Peter Östman",
+      "party": "Kristillisdemokraatit",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Päivi Räsänen",
+      "party": "Kristillisdemokraatit",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sari Tanus",
+      "party": "Kristillisdemokraatit",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Sari Essayah",
+      "party": "Kristillisdemokraatit",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Mika Poutala",
+      "party": "Kristillisdemokraatit",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Harry Harkimo",
+      "party": "Liike Nyt",
+      "photoUrl": "https://images.squarespace-cdn.com/content/v1/689db994cb0098770df1eeb5/71b11fea-48ba-4cdc-bbd6-713386cea552/hjallis.png?format=500w",
+      "disclosures": {}
+    },
+    {
+      "id": "",
+      "name": "Timo Vornanen",
+      "party": "Eduskuntaryhmä Timo Vornanen",
+      "photoUrl": "https://www.eduskunta.fi/FI/kansanedustajat/PublishingImages/Vornanen-Timo-web-1522.jpg?RenditionID=6&Width=128",
+      "disclosures": {}
+    }
   ]
 }
